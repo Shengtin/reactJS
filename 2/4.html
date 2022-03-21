@@ -1,0 +1,162 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Destructuring</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p><img src="https://cdn-images-1.medium.com/max/2600/1*A45ygxmUKM-AeltQtCq4fA.jpeg" alt="destructure"></p>
+<p>The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack <strong>arrays</strong> and <strong>properties</strong>.</p>
+<p>For example, if we frequently need to access these 2 variables:</p>
+<pre><code class="hljs css"><span class="hljs-selector-tag"><span class="hljs-selector-tag">props</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.user</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.id</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">props</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.user</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.name</span></span></code></pre><p>Having to repeat them multiple times cause your code to be bloated with codes.<br>Using destructuring:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> { id, name} = props.user</code></pre>
+<p>We can now easily access <code>props.user.id</code> and <code>props.user.name</code> by just typing <code>id</code> and <code>name</code>!</p>
+<p>You'll be able to see how this works in practice later on and how clean your code looks after destructuring.</p>
+<hr>
+<p>💡 <strong>We use destructuring frequently in React development, make sure you understand this concept well before moving on</strong> 💡</p>
+<hr>
+<p>Destructuring can be done on either an array or an object.</p>
+<h2 id="array-destructuring">Array destructuring</h2>
+<p>Usually, we access an array like so:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> someArray = [
+  <span class="hljs-string"><span class="hljs-string">'hello'</span></span>,
+  <span class="hljs-number"><span class="hljs-number">100</span></span>,
+  { <span class="hljs-attr"><span class="hljs-attr">a</span></span>: <span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-attr"><span class="hljs-attr">b</span></span>: <span class="hljs-number"><span class="hljs-number">2</span></span> }
+]
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(someArray[<span class="hljs-number"><span class="hljs-number">0</span></span>]) <span class="hljs-comment"><span class="hljs-comment">// 'hello'</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(someArray[<span class="hljs-number"><span class="hljs-number">1</span></span>]) <span class="hljs-comment"><span class="hljs-comment">// 100</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(someArray[<span class="hljs-number"><span class="hljs-number">2</span></span>]) <span class="hljs-comment"><span class="hljs-comment">// { a: 1, b: 2 }</span></span></code></pre>
+<p>We can destructure an array using square brackets <code>[]</code> after <code>const</code> or <code>let</code>:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">//Destructuring 'someArray' into x, y, z</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> someArray = [
+  <span class="hljs-string"><span class="hljs-string">'hello'</span></span>,
+  <span class="hljs-number"><span class="hljs-number">100</span></span>,
+  { <span class="hljs-attr"><span class="hljs-attr">a</span></span>: <span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-attr"><span class="hljs-attr">b</span></span>: <span class="hljs-number"><span class="hljs-number">2</span></span> }
+]
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [x, y, z] = someArray
+
+<span class="hljs-comment"><span class="hljs-comment">// Now we have access to `x`, `y` and `z`:</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(x) <span class="hljs-comment"><span class="hljs-comment">// 'hello'</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(y) <span class="hljs-comment"><span class="hljs-comment">// 100</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(z) <span class="hljs-comment"><span class="hljs-comment">// { a: 1, b: 2 }</span></span></code></pre>
+<hr>
+<h2 id="object-destructuring">Object Destructuring</h2>
+<p>Let's destructure the following object:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> person = {
+  <span class="hljs-attr"><span class="hljs-attr">name</span></span>: <span class="hljs-string"><span class="hljs-string">'Liren'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">age</span></span>: <span class="hljs-number"><span class="hljs-number">18</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">fbAccount</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">'XxTHe_FAt4I_FIstEr-_-xXl'</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">password</span></span>: <span class="hljs-string"><span class="hljs-string">'password'</span></span>
+  }
+}
+
+<span class="hljs-comment"><span class="hljs-comment">// Destructure 'person' object to easily access name, age and fbAccount:</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> { name, age, fbAccount } = person
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(name) <span class="hljs-comment"><span class="hljs-comment">// 'Liren'</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(age) <span class="hljs-comment"><span class="hljs-comment">// 18</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(fbAccount) <span class="hljs-comment"><span class="hljs-comment">// { username: 'XxTHe_FAt4I_FIstEr-_-xXl', password: 'password' }</span></span></code></pre>
+<p>By doing the above, we can simply use <code>name</code> and <code>age</code> instead of <code>person.name</code> and <code>person.age</code>.
+If the 2 variables are being repeated a lot, destructuring can help creating cleaner code.</p>
+<h3 id="destructure-a-nested-object">Destructure a nested object</h3>
+<p>Assume we have this nested object:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> user = {
+  <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">101</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">email</span></span>: <span class="hljs-string"><span class="hljs-string">'josh@nextacademy.com'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">personalInfo</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">name</span></span>: <span class="hljs-string"><span class="hljs-string">'Josh'</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">address</span></span>: {
+      <span class="hljs-attr"><span class="hljs-attr">line1</span></span>: <span class="hljs-string"><span class="hljs-string">'AG-7, Glomac Damansara'</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">state</span></span>: <span class="hljs-string"><span class="hljs-string">'Kuala Lumpur'</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">country</span></span>: <span class="hljs-string"><span class="hljs-string">'Malaysia'</span></span>
+    }
+  }
+}</code></pre>
+<p>But if we only care about <code>name</code>, <code>email</code> and <code>country</code>, we can extract out these variables like so:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// destructure 'user' object</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> {
+  email,
+  <span class="hljs-attr"><span class="hljs-attr">personalInfo</span></span>: {
+    name,
+    <span class="hljs-attr"><span class="hljs-attr">address</span></span>: {
+      country
+    }
+  }
+} = user
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(email) <span class="hljs-comment"><span class="hljs-comment">// josh@nextacademy.com</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(name) <span class="hljs-comment"><span class="hljs-comment">// Josh</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(country) <span class="hljs-comment"><span class="hljs-comment">// Malaysia</span></span>
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(id) <span class="hljs-comment"><span class="hljs-comment">// undefined</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(personalInfo) <span class="hljs-comment"><span class="hljs-comment">// undefined</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(address) <span class="hljs-comment"><span class="hljs-comment">// undefined</span></span></code></pre>
+<p><em>Notice that when we destructure, we can just pick out the variables that we want; we don't necessarily need to destructure everything.</em><br><em>Only the last nested property is returned as a variable; the parents that we reference along the way are not.</em> </p>
+<h3 id="assign-default-value-during-a-destructure">Assign default value during a destructure</h3>
+<p>We can use <code>=</code> during destructuring to set default value:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> order = {
+  <span class="hljs-attr"><span class="hljs-attr">product</span></span>: <span class="hljs-string"><span class="hljs-string">'laptop'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">price</span></span>: <span class="hljs-number"><span class="hljs-number">1999</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">quantity</span></span>: <span class="hljs-literal"><span class="hljs-literal">undefined</span></span>
+}
+
+<span class="hljs-comment"><span class="hljs-comment">// We destructure 'order'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> {
+  product,
+  price,
+  quantity = <span class="hljs-number"><span class="hljs-number">1</span></span> <span class="hljs-comment"><span class="hljs-comment">// if quantity is undefined, set it to 1</span></span>
+} = order
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(price) <span class="hljs-comment"><span class="hljs-comment">// 1999</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(quantity) <span class="hljs-comment"><span class="hljs-comment">// 1</span></span></code></pre>
+<hr>
+<h3 id="challenge">Challenge</h3>
+<p><strong>EX 1: Complete <code>getState</code> function to match the output</strong></p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> getState = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">state</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// complete this</span></span>
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [state, logState] = getState(<span class="hljs-string"><span class="hljs-string">'stable'</span></span>)
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(state) <span class="hljs-comment"><span class="hljs-comment">// The console should print out 'stable'</span></span>
+logState() <span class="hljs-comment"><span class="hljs-comment">// The console should print out 'Your state is stable'</span></span></code></pre>
+<p><strong>Expected Result:</strong><br><img src="https://next-courses-assets.s3-ap-southeast-1.amazonaws.com/React.js_Javascript_-_Bootcamp/getState.gif" alt="getState.gif"></p>
+<p><strong>EX 2:</strong></p>
+<p>Given the following object:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> user = {
+  <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">101</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">email</span></span>: <span class="hljs-string"><span class="hljs-string">'josh@nextacademy.com'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">personalInfo</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">name</span></span>: <span class="hljs-string"><span class="hljs-string">'Josh'</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">gender</span></span>: <span class="hljs-string"><span class="hljs-string">'male'</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">address</span></span>: {
+      <span class="hljs-attr"><span class="hljs-attr">line1</span></span>: <span class="hljs-string"><span class="hljs-string">'AG-7, Glomac Damansara'</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">state</span></span>: <span class="hljs-string"><span class="hljs-string">'Kuala Lumpur'</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">country</span></span>: <span class="hljs-string"><span class="hljs-string">'Malaysia'</span></span>
+    }
+  }
+}</code></pre>
+<p>Destructure it, then create a new object named <code>josh</code> that looks like this:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(josh)
+<span class="hljs-comment"><span class="hljs-comment">/* prints out:
+{
+  gender: 'male',
+  email: 'josh@nextacademy.com',
+  address: 'AG-7, Glomac Damansara, Kuala Lumpur, Malaysia'
+}
+*/</span></span></code></pre>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

@@ -1,0 +1,88 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Home Page with API Call</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Let's remove the hardcoded <code>users</code> data and fetch actual data from Nextagram server.</p>
+<p>This Nextagram server built in Python has several exposed API endpoints for you to interact with.</p>
+<p><strong>Refer to the <a target="_blank" href="https://documenter.getpostman.com/view/2792518/RzZ6HLBy">Nextagram API documentation</a> for the full URL.</strong></p>
+<p>You will now make API call to <code>https://insta.nextacademy.com/api/v1/users</code> to retrieve actual data from server..</p>
+<h3 id="axios">Axios</h3>
+<p><a target="_blank" href="https://github.com/axios/axios">Axios</a> is a wonderful tool that allows you to make request from client to server easily in JS.</p>
+<h4 id="installation">Installation:</h4>
+<p>Make sure you are in the root folder of your React app (where <code>package.json</code> lives), run</p>
+<pre><code class="hljs coffeescript"><span class="hljs-built_in"><span class="hljs-built_in">npm</span></span> i axios</code></pre><p><em>A longer way of writing the above is <code>npm install axios</code></em>.</p>
+<p>You should see "axios" along with its latest version number appears in <code>package.json</code>.</p>
+<h4 id="usage">Usage:</h4>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// Remember to import the library before using it</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> axios <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'axios'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, {useState, useEffect} <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">//...</span></span>
+
+useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-comment"><span class="hljs-comment">// performing a GET request</span></span>
+    axios.get(<span class="hljs-string"><span class="hljs-string">'https://insta.nextacademy.com/api/v1/users'</span></span>)
+    .then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">result</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+      <span class="hljs-comment"><span class="hljs-comment">// If successful, we do stuffs with 'result'</span></span>
+      setUsers([...])
+    })
+    .catch(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">error</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+      <span class="hljs-comment"><span class="hljs-comment">// If unsuccessful, we notify users what went wrong</span></span>
+      <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">'ERROR: '</span></span>, error)
+    })
+  }, [])
+</code></pre>
+<ol>
+<li><p><code>axios.get()</code> returns a <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">promise</a>. We handle the result of the GET request with <code>.then</code> and <code>.catch</code>.</p>
+</li>
+<li><p><code>useEffect()</code> is usually the right place to integrate API calls, but remember to include an empty dependency array so that it only gets called on the initial load. Upon receiving data, we will then <code>setUsers()</code> to trigger re-rendering with the newly fetch data.</p>
+</li>
+<li><p>We should <strong>never</strong> fetch any data in <code>useEffect()</code> method that depends on a state. When <code>useEffect()</code> depends on a state then the function gets triggered everytime the state is updated, making API call here will cause loads of unnecessary requests.</p>
+</li>
+<li><p>Use "Network" tab in Chrome Inspector to analyse API calls when necessary</p>
+</li>
+</ol>
+<hr>
+<h3 id="challenge">Challenge</h3>
+<p><strong>1. Use <code>axios</code> to retrieve all users from server, and render their <code>username</code> and <code>profileImage</code>.</strong></p>
+<ul>
+<li>Keep your developer tool open to notice errors/warnings</li>
+<li>Use <em>Network</em> tab to debug failed requests.</li>
+</ul>
+<p><strong>2. What should be the initial state of <code>users</code>? Should it be <code>null</code> or <code>[]</code> or <code>''</code>? Why?</strong></p>
+<ul>
+<li>If you see error <code>Cannot read property 'map' of null/undefined</code>, that means you are calling <code>.map</code> on something that is <strong>not</strong> an array</li>
+</ul>
+<p><strong>3. While API request is loading, show a loading indicator</strong></p>
+<ul>
+<li>You will need a new <code>isLoading</code> state, and it can be used like so:</li>
+</ul>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [ isLoading, setIsLoading ] = useState(<span class="hljs-literal"><span class="hljs-literal">true</span></span>)
+
+<span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (isLoading) {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">LoadingIndicator</span></span></span></span><span class="xml"><span class="hljs-tag"> /&gt;</span></span></span><span class="xml">
+}
+
+return (
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    ...
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+)</span></span></code></pre>
+<ul>
+<li>All kinds of loading animations can be found here: <a target="_blank" href="https://loading.io/">https://loading.io/</a></li>
+</ul>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

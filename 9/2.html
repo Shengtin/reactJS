@@ -1,0 +1,37 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>User Profile Page</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Now that you get your routes are working, let's work on <strong>User Profile Page</strong>. This page needs to display 2 things:</p>
+<ol>
+<li>Username</li>
+<li>All images that belong to this user</li>
+</ol>
+<p>The route for User Profile page is <code>/user/:id</code>.</p>
+<p>When someone visits <code>/users/:id</code>, your app needs to retrieve the value of <code>:id</code>, and make an API call to <code>https://insta.nextacademy.com/api/v1/images?userId=&lt;:id&gt;</code> to get the images.</p>
+<hr>
+<h3 id="challenge">Challenge</h3>
+<h4 id="1-get-id-value">1. Get <code>:id</code> Value</h4>
+<p>Using <a target="_blank" href="https://reacttraining.com/react-router/web/guides/quick-start">React Router documentation</a>, figure out how to use <strong>URL Parameter</strong> to obtain the <code>:id</code> from URL bar.</p>
+<p><strong>Hint:</strong> Take a look at the <code>useParams()</code> hook provided by React Router.</p>
+<h4 id="2-making-api-call">2. Making API Call</h4>
+<p>Once you have the ID, in the <code>UserProfilePage</code> component, you will make API call to:</p>
+<pre><code class="hljs xml">https://insta.nextacademy.com/api/v1/images?userId=<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">:id</span></span></span><span class="hljs-tag">&gt;</span></span></code></pre><p>and displays all the images belong to that user.</p>
+<p><em>You will need to replace <code>&lt;:id&gt;</code> in the URL with the variable that gives you the user id</em></p>
+<h4 id="3-display-user-name">3. Display user name</h4>
+<p>Only the user ID and images are not sufficient. Find a way to display the username as well!</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

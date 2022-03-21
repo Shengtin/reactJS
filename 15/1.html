@@ -1,0 +1,158 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Socket IO Integration</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h3 id="what-is-socketio">What is socket.io?</h3>
+<p>It is a JS library built for real time web applications, ie. the live chat we are building.</p>
+<p>We will be using <a target="_blank" href="https://www.npmjs.com/package/socket.io">socket.io package</a> for backend server and <a target="_blank" href="https://www.npmjs.com/package/socket.io-client">socket.io-client package</a> for this React app (client-side).</p>
+<p>Fret not! We have already built you the backend server, and it is currently running on:</p>
+<p><code>https://lirenyeo-react-group-chat-socket-io-server-1.glitch.me/</code></p>
+<p>The idea is that everyone will have their live chat talking to the same backend server, so that everyone can use the chatroom they built to chat with each other ;)</p>
+<h4 id="optional-host-backend-server-locally">(Optional) Host Backend Server Locally</h4>
+<p>If you want to host a local server on your PC for development purpose, you can download the code from <a target="_blank" href="https://github.com/lirenyeo/react-group-chat-socket-io-server">here</a>!</p>
+<p>The server code can be found in <code>index.js</code>. For setting up, make sure you first run <code>npm install</code>. It will create a <code>node_mdules/</code> folder where <em>express</em>, <em>socket.io</em> and <em>sentencer</em> source codes are kept.</p>
+<p>To start the server, just run <code>npm start</code> and voila! Server is now running at the address <code>localhost:80</code>!</p>
+<hr>
+<h3 id="io--socket--on--emit"><code>io</code> / <code>socket</code> / <code>.on</code> / <code>.emit</code></h3>
+<p>Before we dive into coding, let's take a moment to understand these few keywords:</p>
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>Keyword</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>io</code></td>
+<td>The entire server. Currently there is only one instance of IO running in NEXT Academy, waiting for you guys (sockets) to join.</td>
+</tr>
+<tr>
+<td><code>socket</code></td>
+<td>Once your React app is connected to the <code>io</code>, you're now a <code>socket</code>. In other words, you can think of each socket as a user.</td>
+</tr>
+<tr>
+<td><code>.on</code></td>
+<td>When we write <code>socket.on('SEND_MSG', fn)</code>, it means that whenever a user SEND_MSG, the function <code>fn</code> will run! This socket is constantly waiting for <code>SEND_MSG</code> command as long as the server is running.</td>
+</tr>
+<tr>
+<td><code>.emit</code></td>
+<td>If <code>.on</code> is <em>listening</em>, then <code>.emit</code> is <em>commanding</em>. <br>For example, if we write <code>socket.emit('SEND_MSG', data)</code>, then it will trigger its counterpart, which is the <code>socket.on('SEND_MSG', fn)</code>. The <code>data</code> you emitted can be used inside the <code>fn</code> function.</td>
+</tr>
+</tbody></table>
+<p>Here's the server-side code running on the server, take a few minutes to understand it!
+(You do not need this code)</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// An array of all active users</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">let</span></span> users = []
+
+<span class="hljs-comment"><span class="hljs-comment">// Whenever a socket/user joins the server (io),</span></span>
+io.on(<span class="hljs-string"><span class="hljs-string">'connection'</span></span>, (socket) =&gt; {
+
+  <span class="hljs-comment"><span class="hljs-comment">// we assign the user ID and random username and pass it to current user</span></span>
+  socket.on(<span class="hljs-string"><span class="hljs-string">'NEW_USER'</span></span>, () =&gt; {
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> randomName = Sentencer.make(<span class="hljs-string"><span class="hljs-string">"{{ adjective }} {{ noun }}"</span></span>)
+      .split(<span class="hljs-string"><span class="hljs-string">' '</span></span>)
+      .map(<span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">s</span></span></span><span class="hljs-function">) =&gt;</span></span> s.charAt(<span class="hljs-number"><span class="hljs-number">0</span></span>).toUpperCase() + s.substring(<span class="hljs-number"><span class="hljs-number">1</span></span>))
+      .join(<span class="hljs-string"><span class="hljs-string">' '</span></span>)
+
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> newUser = {
+      <span class="hljs-attr"><span class="hljs-attr">id</span></span>: socket.id,
+      <span class="hljs-attr"><span class="hljs-attr">username</span></span>: randomName,
+    }
+
+    <span class="hljs-comment"><span class="hljs-comment">// we then populate user list,</span></span>
+    users.push(newUser)
+
+    <span class="hljs-comment"><span class="hljs-comment">// and gives current user his id and username</span></span>
+    socket.emit(<span class="hljs-string"><span class="hljs-string">'GET_CURRENT_USER'</span></span>, newUser)
+
+    <span class="hljs-comment"><span class="hljs-comment">// and tell everyone on the server (io) to update their user list</span></span>
+    io.emit(<span class="hljs-string"><span class="hljs-string">'UPDATE_USER_LIST'</span></span>, users)
+  })
+
+  <span class="hljs-comment"><span class="hljs-comment">// Whenever a user send message, we broadcast it to everyone</span></span>
+  socket.on(<span class="hljs-string"><span class="hljs-string">'BROADCAST_MESSAGE'</span></span>, data =&gt; {
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> {username, message, timestamp} = data
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (username &amp;&amp; message &amp;&amp; timestamp &amp;&amp; <span class="hljs-keyword"><span class="hljs-keyword">typeof</span></span> username == <span class="hljs-string"><span class="hljs-string">'string'</span></span> &amp;&amp; <span class="hljs-keyword"><span class="hljs-keyword">typeof</span></span> message == <span class="hljs-string"><span class="hljs-string">'string'</span></span>) {
+      io.emit(<span class="hljs-string"><span class="hljs-string">'RECEIVE_BROADCAST'</span></span>, data)
+    } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+      socket.emit(<span class="hljs-string"><span class="hljs-string">'HAS_ERROR'</span></span>, <span class="hljs-string"><span class="hljs-string">'BROADCAST_MESSAGE must submit an object with username (string), message (string) and timestamp (number)'</span></span>)
+    }
+  })
+
+  <span class="hljs-comment"><span class="hljs-comment">// Whenever a user disconnects, we update everyone's user lists</span></span>
+  socket.on(<span class="hljs-string"><span class="hljs-string">'disconnect'</span></span>, () =&gt; {
+    users = users.filter(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">u</span></span></span><span class="hljs-function"> =&gt;</span></span> u.id !== socket.id)
+    io.emit(<span class="hljs-string"><span class="hljs-string">'UPDATE_USER_LIST'</span></span>, users)
+    socket.removeAllListeners()
+  })
+
+  <span class="hljs-comment"><span class="hljs-comment">// Whenever there is an error on server,</span></span>
+  socket.on(<span class="hljs-string"><span class="hljs-string">"error"</span></span>, () =&gt; {
+    socket.emit(<span class="hljs-string"><span class="hljs-string">"HAS_ERROR"</span></span>, <span class="hljs-string"><span class="hljs-string">'Something went wrong on the server!'</span></span>)
+  })</code></pre>
+<h3 id="event-names">Event Names</h3>
+<p>Pay attention to these event names:</p>
+<ul>
+<li><p>Events that you can <code>emit</code></p>
+<ul>
+<li><code>NEW_USER</code></li>
+<li><code>BROADCAST_MESSAGE</code></li>
+</ul>
+</li>
+<li><p>Events that you can <code>listen</code></p>
+<ul>
+<li><code>GET_CURRENT_USER</code></li>
+<li><code>UPDATE_USER_LIST</code></li>
+<li><code>RECEIVE_BROADCAST</code></li>
+<li><code>HAS_ERROR</code></li>
+</ul>
+</li>
+</ul>
+<p>These are the exact string you will need in your React app (client side).</p>
+<p>For example, in the server-side code, we see</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// server-side</span></span>
+socket.on(<span class="hljs-string"><span class="hljs-string">'NEW_USER'</span></span>, () =&gt; {
+  ...
+  ...
+  socket.emit(<span class="hljs-string"><span class="hljs-string">'GET_CURRENT_USER'</span></span>, newUser)
+})</code></pre>
+<p>That means the server is listening on this particular event keyword. In order to trigger this event, on React side, we will write something like this:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// client-side (Your React App)</span></span>
+useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// Once the chat app is loaded, we tell server that we are joining</span></span>
+  Socket.emit(<span class="hljs-string"><span class="hljs-string">'NEW_USER'</span></span>)
+
+  Socket.on(<span class="hljs-string"><span class="hljs-string">'GET_CURRENT_USER'</span></span>, newUser =&gt; {
+    <span class="hljs-comment"><span class="hljs-comment">// we got newUser object from the server</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// which we can use to do whatever we want</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// such as displaying the name and id</span></span>
+    })
+}, [])</code></pre>
+<h3 id="implement-spansocketio-clientspan">Implement <span>socket.io-client</span></h3>
+<p>Now that we have the server-side socket running, it's time for the client-side setup.</p>
+<p>Install the package for your React app:</p>
+<pre><code class="hljs sql">npm <span class="hljs-keyword"><span class="hljs-keyword">install</span></span> <span class="hljs-comment"><span class="hljs-comment">--save socket.io-client</span></span></code></pre><p>Let's create a socket utilility file at <code>src/utils/socket.js</code>.</p>
+<p>and put this code in:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> io <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'socket.io-client'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> Socket = io(<span class="hljs-string"><span class="hljs-string">'https://lirenyeo-react-group-chat-socket-io-server-1.glitch.me/'</span></span>)
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> Socket</code></pre>
+<p>Now whenever we need to use the socket, we can do:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> Socket <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'../utils/socket'</span></span>
+
+Socket.on(...)</code></pre>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

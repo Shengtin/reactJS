@@ -1,0 +1,84 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Pair Programming React Todo List</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Let's take a break from Nextagram and build a todo list to strengthen your React Thinking:</p>
+<p>You are going to build a very simple app like <a target="_blank" href="https://codepen.io/marekdano/pen/bVNYpq">this</a> <em>(Don't bother with the code, reading/using it will just overcomplicate your progress)</em></p>
+<p>Generate a new app using <code>create-react-app</code>, and build a todo list with the following requirements:</p>
+<h3 id="app-structure">App Structure</h3>
+<p>You will have <strong>3 Components:</strong></p>
+<h3 id="1-app">1. <code>&lt;App/&gt;</code></h3>
+<p>Initialize it with the following state:</p>
+<pre><code class="language-jsx hljs javascript">  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [todos, setTodos] = useState(
+    [
+      { <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-attr"><span class="hljs-attr">task</span></span>: <span class="hljs-string"><span class="hljs-string">'Walk the dog'</span></span>, <span class="hljs-attr"><span class="hljs-attr">done</span></span>: <span class="hljs-literal"><span class="hljs-literal">false</span></span> },
+      { <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">2</span></span>, <span class="hljs-attr"><span class="hljs-attr">task</span></span>: <span class="hljs-string"><span class="hljs-string">'Water the flower'</span></span>, <span class="hljs-attr"><span class="hljs-attr">done</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span>}
+    ]
+  )</code></pre>
+<p>The <code>todos</code> state (which is an array of objects), will live in <code>&lt;App /&gt;</code> parent component, this is because both <code>&lt;TodoItem/&gt;</code> needs to read <code>todos</code> state, and <code>&lt;TodoForm/&gt;</code> component needs to execute <code>setTodos</code> function upon submission.</p>
+<h3 id="2-todoitem">2. <code>&lt;TodoItem/&gt;</code></h3>
+<p>This is the component for <strong>each todo list item</strong>.</p>
+<p>It should be a presentational component <strong>without state</strong>. It simply receive <code>todos</code> from parent as props, and render them nicely.</p>
+<p>The "delete button" with its <code>onClick</code> event should also live here.</p>
+<h3 id="3-todoform">3. <code>&lt;TodoForm/&gt;</code></h3>
+<p>This component will render a form that consist of a <em>Text Input</em> and <em>Submit Button</em>.</p>
+<p>You will have a state called <code>text</code> to store the characters users type into the form input:</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [text, setText] = useState(<span class="hljs-string"><span class="hljs-string">''</span></span>)
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleSubmit = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">e</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  e.preventDefault()
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleInput = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">e</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  setText(e.target.value)
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+  &lt;form onSubmit={handleSubmit}&gt;
+    &lt;input onChange={handleInput} value={text} type="text" /&gt;
+    &lt;input type="submit" value="Add Task" /&gt;
+  &lt;/form&gt;
+)</code></pre>
+<hr>
+<h3 id="app-behavior">App Behavior</h3>
+<ol>
+<li>Users can use the form to add new task.</li>
+<li>Users can delete a task by pressing a button next to it.</li>
+<li>Users can mark a task as done by clicking on the task itself.</li>
+<li>There should be obvious styling that differentiate between completed and incomplete tasks.</li>
+</ol>
+<hr>
+<h3 id="better-uiux">Better UIUX</h3>
+<ol>
+<li>Form's text input should get cleared after adding a task</li>
+<li>Do not allow users to add task with empty string</li>
+<li>Make it look awesome!</li>
+</ol>
+<hr>
+<h3 id="important">Important</h3>
+<p>Be very careful <strong>NOT TO</strong> mutate states directly:</p>
+<pre><code class="language-JS hljs"><span class="hljs-comment"><span class="hljs-comment">// do not do these:</span></span>
+todos.push(...)
+todos[<span class="hljs-number"><span class="hljs-number">0</span></span>] = ...</code></pre>
+<p>Rather, try doing this:</p>
+<p><strong>To add new items into an array state:</strong></p>
+<pre><code class="language-jsx hljs javascript">setTodos([
+  ...todos,
+  {<span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">3</span></span>, <span class="hljs-attr"><span class="hljs-attr">task</span></span>: <span class="hljs-string"><span class="hljs-string">'new task'</span></span>}
+])</code></pre>
+<p><a target="_blank" href="https://daveceddia.com/why-not-modify-react-state-directly/">https://daveceddia.com/why-not-modify-react-state-directly/</a></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

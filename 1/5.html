@@ -1,0 +1,52 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>What is React?</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>React is often described as “the V in the MVC structure”. It is a JavaScript library for building user interfaces. The big idea behind React is this: <em>what if you could create your own HTML element that has customized functionality?</em> This is known as a <strong>component</strong>.</p>
+<h3 id="react-component">React Component</h3>
+<p>At the heart of all React applications are <strong>components</strong>. A component is a mixture of HTML and JavaScript that captures all of the logic required to display a small section of a larger UI.</p>
+<p>For example, here's a React component named  <code>GreetMessage</code>:</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> GreetMessage = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">props</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">className</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"text-white"</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Hello, {props.name}!</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>;
+}</code></pre>
+<p>We can reuse multiple <code>GreetMessage</code> components in other components, for example:</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> Welcome = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    &lt;div id="container"&gt;
+      &lt;GreetMessage name="Harry" /&gt;
+      &lt;GreetMessage name="Ron" /&gt;
+    &lt;/div&gt;
+  )
+}</code></pre>
+<hr>
+<h4 id="1-jsx">1. JSX</h4>
+<p>So what's this weird combination of JS + HTML hybrid that you're seeing from above example?<br>The syntax is known as JSX, where you write HTML-like Javascript. Yeah, those "HTML" tags are actually still JavaScript!</p>
+<hr>
+<h4 id="2-classname-instead-of-class">2. <code>className</code> instead of <code>class</code></h4>
+<p>Since the HTML-like syntax is actually JS, and <code>class</code> is a reserved keyword in JS, Facebook had to call it something else - <code>className</code></p>
+<p>Take note that certain HTML attributes with dashes like <code>tab-index</code> will follow JS <strong>camelCase</strong> convention and should be written as <code>tabIndex</code>.</p>
+<hr>
+<h4 id="3-calling-variables-in-jsx-using-">3. Calling variables in JSX using <code>{}</code></h4>
+<p>In vanilla JS, if you want to use JS to add name to the following span:</p>
+<pre><code class="language-html hljs xml"><span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span><span class="hljs-tag">&gt;</span></span>Hello, <span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">span</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">id</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"name"</span></span></span><span class="hljs-tag">&gt;</span></span><span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">span</span></span></span><span class="hljs-tag">&gt;</span></span>!<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span><span class="hljs-tag">&gt;</span></span></code></pre>
+<p>You will have to do something like this:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'name'</span></span>).innerHTML = guestName</code></pre>
+<hr>
+<p>In React, you simply write:</p>
+<pre><code class="language-js hljs javascript">&lt;h1&gt;Hello, {guestName}!<span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span></code></pre>
+<p>🎉 😍 🎉</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

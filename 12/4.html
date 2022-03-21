@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Uploading Images with Axios</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>We are now onto the final part of uploading the image.</p>
+<p>By the end of this lesson you should have something that looks like this:</p>
+<p><img src="https://next-courses-assets.s3.amazonaws.com/React.js_Javascript_-_Bootcamp/966211c4-2683-4784-a513-35ed9fe948ea-image-upload.gif" alt="image-upload.gif"></p>
+<p>In a conventional web app, we would submit the form to the server via a <code>POST</code> request and the server will handle upload to an external source such as <code>Amazon AWS S3</code> or <code>Google Cloud</code> and store the images online.</p>
+<p>Since we can't handle uploading images straight to the cloud in React we will let the API that has been built for us handle the uploading to the cloud.</p>
+<p>Again, you have access to this endpoint that will handle the <code>POST</code> request, upload to Amazon S3 and return a success response along with the URL for the image.</p>
+<pre><code class="hljs coffeescript">POST https:<span class="hljs-regexp"><span class="hljs-regexp">//i</span></span>nsta.nextacademy.com<span class="hljs-regexp"><span class="hljs-regexp">/api/v1/images/</span></span></code></pre><h3 id="sending-the-file-to-the-api">Sending the file to the API</h3>
+<p>This is the part that may get tricky, we have already handled the capturing of the file in the previous lessons, but now is the part of creating the request, attaching the file to the request and then sending it to the server.</p>
+<p>We will be attaching the <code>handleSubmitFile</code> function to the <code>onSubmit</code> event we created earlier on our form.</p>
+<p>We will need to use the <code>Authorization</code> header and <code>Bearer Token</code> for the server to authenticate and handle who is the person uploading the file. You should be using your JWT that you saved in your localStorage earlier.</p>
+<p>With file uploads we need to create a new <code>formData</code> object and attach it to the request, the <code>formData</code> object will carry the file across to the server as form-data and it makes it easier for the server to handle the incoming file.</p>
+<pre><code class="language-JS hljs">handleSubmitFile = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">e</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// Prevent the default behaviour of the form submitting</span></span>
+  e.preventDefault();
+  <span class="hljs-comment"><span class="hljs-comment">// Authorization of the user</span></span>
+  <span class="hljs-keyword"><span class="hljs-keyword">let</span></span> JWT = localStorage.getItem(<span class="hljs-string"><span class="hljs-string">"JWT"</span></span>);
+  <span class="hljs-comment"><span class="hljs-comment">// Formdata object to hold the image file to send to the server</span></span>
+  <span class="hljs-keyword"><span class="hljs-keyword">let</span></span> formData = <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> FormData();
+  <span class="hljs-comment"><span class="hljs-comment">// Append the key:value pair to the formData object</span></span>
+  formData.append(<span class="hljs-string"><span class="hljs-string">"image"</span></span>, imageFile);
+
+  axios.post(<span class="hljs-string"><span class="hljs-string">"https://insta.nextacademy.com/api/v1/images/"</span></span>, formData, {
+      <span class="hljs-attr"><span class="hljs-attr">headers</span></span>: { <span class="hljs-attr"><span class="hljs-attr">Authorization</span></span>: <span class="hljs-string"><span class="hljs-string">`Bearer </span><span class="hljs-subst"><span class="hljs-string"><span class="hljs-subst">${JWT}</span></span></span><span class="hljs-string">`</span></span> }
+    })
+    .then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">response</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+      <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (response.data.success) {
+          setMessage(<span class="hljs-string"><span class="hljs-string">"Image Uploaded Successfully!"</span></span>)
+          setPreviewImage(<span class="hljs-literal"><span class="hljs-literal">null</span></span>)
+          setImageFile(<span class="hljs-literal"><span class="hljs-literal">null</span></span>)
+      }
+    })
+    .catch(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">error</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+      <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(error.response);
+    });
+};</code></pre>
+<p>Again, we are using an <code>axios.post()</code> request to send the information to the server, but this time it is necessary to include some extra steps to ensure the server can handle the request successfully.</p>
+<p>Firstly, we pass the formData after the URL for the endpoint, this will pass the formData into the request to be sent to the server.</p>
+<p>Secondly, we need to include the <code>Authorization</code> header. We need to pass the JWT along with the request for the server to authenticate who is trying to use the endpoint and also to assign the correct user to the image that is being store in the database.</p>
+<p>This example handles the returned response lightly, it will update the state with a message, which can then be displayed to notify the user that the upload was successful. It will also clear the file and preview URL from the state at the same time.</p>
+<hr>
+<h3 id="exercise">Exercise:</h3>
+<p>Go and implement this for your own image uploading.</p>
+<p>Style it and make the process much more UI friendly, how about adding in an uploading progress bar or spinner like the example above. How else can you make the process more user friendly? Experiment and play around with this feature, style it and make it look nice. In the end, the best way to learn all of this is to go and practice it for yourself.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

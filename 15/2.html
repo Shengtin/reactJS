@@ -1,0 +1,43 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Initialize the Chat</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h2 id="chatroom-initialization">Chatroom Initialization</h2>
+<h4 id="the-first-step">The First Step</h4>
+<p>Your first step is to tell the server that a user has joined whenever someone loads up your React chat app.</p>
+<p>Recall that if we want a piece of code to load right before anything else, we can put it in <code>useEffect</code> and pass it an empty dependency array.</p>
+<p>That is where you want to <code>emit</code> the <strong>NEW_USER</strong> event. You will also need to start 'listening' to <strong>GET_CURRENT_USER</strong> and <strong>UPDATE_USER_LIST</strong></p>
+<pre><code class="language-js hljs javascript"> <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [..., ...] = useState(...)
+
+ useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  Socket.emit(<span class="hljs-string"><span class="hljs-string">'NEW_USER'</span></span>)
+
+  Socket.on(<span class="hljs-string"><span class="hljs-string">'GET_CURRENT_USER'</span></span>, user =&gt; {
+    <span class="hljs-comment"><span class="hljs-comment">// think about what to do here</span></span>
+  })
+
+  Socket.on(<span class="hljs-string"><span class="hljs-string">'UPDATE_USER_LIST'</span></span>, users =&gt; {
+    <span class="hljs-comment"><span class="hljs-comment">// think about what to do here</span></span>
+  })
+ }, [])</code></pre>
+<hr>
+<h3 id="challenge">Challenge</h3>
+<p><strong>1. GET_CURRENT_USER</strong></p>
+<p>When a user joins a chat room, set the <code>username</code> state to the random-generated username and display it.</p>
+<p><strong>2. UPDATE_USER_LIST</strong></p>
+<p>List out all online users currently in the chat. You can open up your app in multiple tabs/browsers to simulate multiple active users.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

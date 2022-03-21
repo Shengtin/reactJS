@@ -1,0 +1,64 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Styling in React</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p><code>create-react-app</code> has made it such that you are allowed to import <code>.css</code> files into your JS file. Take a look at the imports of App.js you will see:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> <span class="hljs-string"><span class="hljs-string">'./App.css'</span></span>;</code></pre>
+<p>Note that the CSS import was made possible due to the <a target="_blank" href="https://flaviocopes.com/webpack/">webpack</a> configuration of <code>creat-react-app</code>; it is not a default behavior of all JS files.</p>
+<p>There is also another caveat: all the style rules in <code>App.css</code> will be globally applied to every components.</p>
+<p>But how about <em>inline-styling</em>? For that, we can use <code>style</code> prop.</p>
+<h3 id="style-property">Style Property</h3>
+<p>Every elements in React component can have a <code>style</code> prop that accepts an object:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> btnStyle = {
+  <span class="hljs-attr"><span class="hljs-attr">backgroundColor</span></span>: <span class="hljs-string"><span class="hljs-string">'#0097ab'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">border</span></span>: <span class="hljs-string"><span class="hljs-string">'solid 2px blue'</span></span>
+  <span class="hljs-comment"><span class="hljs-comment">// camcelCase property with string value</span></span>
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> App = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">color:</span></span></span></span><span class="xml"><span class="hljs-tag"> '#</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">09bacd</span></span></span></span><span class="xml"><span class="hljs-tag">', </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">border:</span></span></span></span><span class="xml"><span class="hljs-tag"> '</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">solid</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">2px</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">blue</span></span></span></span><span class="xml"><span class="hljs-tag">' }}&gt;</span></span></span><span class="xml">Hello World!</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{btnStyle}</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Click Me</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  )
+}</code></pre>
+<p>Since we are not allowed to write variables with <code>-</code> (dash) in JS, the CSS properties in the <code>style</code> object needs to be in <a target="_blank" href="https://sanaulla.info/2008/06/25/camelcase-notation-naming-convention-for-programming-languages/">lowerCamelCase</a>, and the values must be in a string.</p>
+<hr>
+<h3 id="other-ways-to-style-react-components">Other ways to style react components</h3>
+<h4 id="css-modules">CSS Modules</h4>
+<p><code>create-react-app</code> has a built-in CSS modules feature. It allows you to import CSS to be used for only a particular component (instead of globally applied like regular CSS)</p>
+<p>You can learn about it here:<br><a target="_blank" href="https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet">https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet</a></p>
+<h4 id="styled-components">Styled Components</h4>
+<p><a target="_blank" href="https://www.styled-components.com/">styled-components</a> is one of the top picks for React developers.</p>
+<p>It allows you to define a component with default styles in it:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> styled <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'styled-components'</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// we can write actual css syntax</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> Button = styled.button<span class="hljs-string"><span class="hljs-string">`
+  background-color: #00973b;
+  border: solid 1px black;
+`</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> App = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Click Me</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  )
+}</code></pre>
+<p>You can install the styled-components package using the guide below:<br><a target="_blank" href="https://www.styled-components.com/docs/basics#installation">https://www.styled-components.com/docs/basics#installation</a></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

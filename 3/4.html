@@ -1,0 +1,38 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>CRA Folder Structure</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h3 id="open-my-app-folder-in-new-vscode-window">Open <code>my-app</code> folder in new VSCode window</h3>
+<p>When working with React code, you will deal with multiple files and folders that grow large over time. Avoid mixing non-related code files under the same VSCode window/workspace.</p>
+<p>Open up the whole <code>my-app</code> folder create-react-app has generated for you in a <strong>new</strong> vscode window, take a look at the sidebar, you should be looking at a list of files and folders.</p>
+<hr>
+<h3 id="folder-structure-of-cra-create-react-app">Folder Structure of CRA (create-react-app)</h3>
+<p>On top level, you will see <code>public</code> and <code>src</code> folders, and several files such as <code>package.json</code>. Let's take a look at a few important ones.</p>
+<h4 id="indexhtml-and-indexjs">index.html and index.js</h4>
+<p>Open up <code>public/index.html</code>, which is basically the only real HTML in your entire React app. Notice how there is only a single div:</p>
+<pre><code class="hljs xml"><span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">div</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">id</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"root"</span></span></span><span class="hljs-tag">&gt;</span></span><span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">div</span></span></span><span class="hljs-tag">&gt;</span></span></code></pre><p><em>Tips: You can use <code>cmd + p</code> (Mac) or <code>ctrl + p</code> (Windows) to open a dialog which allows you to quickly search for a file to open</em></p>
+<p>Next, take a look at <code>src/index.js</code>:</p>
+<pre><code class="hljs coffeescript">ReactDOM.render(&lt;App /&gt;, <span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'root'</span></span>));</code></pre><p>React will take the <code>&lt;App /&gt;</code> component and throw it into the only <code>&lt;div&gt;</code> tag, but what exactly is the <code>&lt;App /&gt;</code> component? Open up <code>App.js</code></p>
+<h4 id="appjs">App.js</h4>
+<p>This the entry point of your app. You will write React code here. Try changing the <code>HTML</code> and see changes get applied on <code>localhost:3000</code></p>
+<h4 id="packagejson">package.json</h4>
+<p><a target="_blank" href="https://medium.com/beginners-guide-to-mobile-web-development/why-package-json-npm-basics-cab3e8cd150">What is package.json?</a></p>
+<p>This file list out all external libraries that you have installed for app. The code for all these external libraries are located in <code>node_modules</code> folder.</p>
+<hr>
+<p><em>React does not dictate how you should structure your files and folders. As your react app grows larger, you will need some kind of system to organize the JS files. You will learn more about this later.</em></p>
+<p>This is React's official response to handling file structure: <a target="_blank" href="https://reactjs.org/docs/faq-structure.html">https://reactjs.org/docs/faq-structure.html</a></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

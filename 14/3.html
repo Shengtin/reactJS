@@ -1,0 +1,42 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Display Conversations</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Create a component where we display all the chat messages. We will use <code>conversations</code> state with this structure:</p>
+<pre><code class="language-js hljs javascript">[
+  {<span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">'Edwind'</span></span>, <span class="hljs-attr"><span class="hljs-attr">message</span></span>: <span class="hljs-string"><span class="hljs-string">'What did the ocean say to another ocean?'</span></span>, <span class="hljs-attr"><span class="hljs-attr">timestamp</span></span>: <span class="hljs-number"><span class="hljs-number">1544532325758</span></span>},
+  {<span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">'Liren'</span></span>, <span class="hljs-attr"><span class="hljs-attr">message</span></span>: <span class="hljs-string"><span class="hljs-string">'sea you later?'</span></span>, <span class="hljs-attr"><span class="hljs-attr">timestamp</span></span>: <span class="hljs-number"><span class="hljs-number">1544532341078</span></span>},
+  {<span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">'Edwind'</span></span>, <span class="hljs-attr"><span class="hljs-attr">message</span></span>: <span class="hljs-string"><span class="hljs-string">'Nothing. It just waved'</span></span>, <span class="hljs-attr"><span class="hljs-attr">timestamp</span></span>: <span class="hljs-number"><span class="hljs-number">1544532347412</span></span>},
+  {<span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">'Josh'</span></span>, <span class="hljs-attr"><span class="hljs-attr">message</span></span>: <span class="hljs-string"><span class="hljs-string">"I'm leaving this chatroom"</span></span>, <span class="hljs-attr"><span class="hljs-attr">timestamp</span></span>: <span class="hljs-number"><span class="hljs-number">1544532402998</span></span>},
+]</code></pre>
+<p>As you can see, <code>conversations</code> should be an <strong>array</strong> of objects with <code>username</code>, <code>message</code> and <code>timestamp</code> keys.</p>
+<h4 id="timestamp">Timestamp</h4>
+<p>The value is the result of calling <code>Date.now()</code>, which returns the number of milliseconds elapsed since January 1, 1970 00:00:00 UTC.</p>
+<p>When a user sends a message, we call <code>Date.now()</code> and store the value.</p>
+<p>To display it in a human readable format, we can use <a target="_blank" href="https://momentjs.com/">momentjs</a> to format it.</p>
+<h3 id="challenges">Challenges</h3>
+<h4 id="1-display-conversations">1. Display <code>conversations</code></h4>
+<p>Render each <code>message</code> nicely along with its <code>username</code>. Remember to handle the case when conversations is an empty array.</p>
+<h4 id="2-sendmessage-should-populate-conversations-state">2. <code>sendMessage</code> should populate <code>conversations</code> state</h4>
+<p>When <code>sendMessage</code> is called, get <code>username</code> and <code>messages</code> and push them into <code>conversations</code> array.</p>
+<h4 id="3-scroll-down-to-latest-message">3. Scroll down to latest message</h4>
+<p>Notice how the conversation window won't display the latest chat messages once it overflows? Fix that!</p>
+<h4 id="4-user-avatar">4. User Avatar</h4>
+<p>Make your chat more lively by generating a profile image for each user. <a target="_blank" href="http://avatars.adorable.io/">Adorable Avatar API</a> is really fun and easy to use:</p>
+<p>Simply call <code>https://api.adorable.io/avatars/150/${username}.png</code> where every username will give you a different image.</p>
+<p>The value <code>150</code> represents <code>150px x 150px</code> resolution.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

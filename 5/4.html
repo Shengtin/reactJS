@@ -1,0 +1,66 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Calculator: Part 1</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Let's get started on creating the calculator. Just stop for a moment and think about a calculator and how you can break it up into smaller pieces.</p>
+<p>First, we have our calculator body; this is the top level component for the calculator that holds all the other components that make up the calculator. In the case of our React app, the <code>App.js</code> will be the body, i.e. the container for the rest of the calculator components.</p>
+<p>Secondly, in the body we have the <code>Display</code>, the component that shows us the outputs, then finally the <code>Keyboard</code> and the <code>Keys</code>. We can use the actual calculator structure to structure the React app in a similar way.</p>
+<h3 id="create-the-components">Create the components</h3>
+<p>So first of all, you can go ahead and create a display component. What is the display component going to show? It should display the output of the calculation as well as what has been typed on the calculator. We will come back to displaying the output later. For now let's generate the simple structure for the display.</p>
+<h5 id="calculator-display">Calculator Display</h5>
+<p>Create a new folder inside of the <code>src</code> folder in your React project, and name it <code>components</code>. Once you have created a new folder, create a file inside called <code>CalculatorDisplay.js</code>. This is where you will build your display component for the calculator.</p>
+<p>We are going to be using a function component to create the display. For now you can just hard code the value into the display, and later on we will make it dynamic.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>;
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> CalculatorDisplay = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">border:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">1px</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">solid</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">black</span></span></span></span><span class="xml"><span class="hljs-tag">" }}&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">width:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">100</span></span></span></span><span class="xml"><span class="hljs-tag">%" }}&gt;</span></span></span><span class="xml">
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">textAlign:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">end</span></span></span></span><span class="xml"><span class="hljs-tag">" }}&gt;</span></span></span><span class="xml">
+          0
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  );
+};
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> CalculatorDisplay;</code></pre>
+<p>What you are seeing shouldn't be too alien; you essentially have a function that returns some HTML content. You will need to get used to writing your code this way as it is the core of React's JSX syntax.</p>
+<h5 id="keypad-component">Keypad Component</h5>
+<p>Again, inside of the <code>components</code> folder, create a new file called <code>KeyPad.js</code>.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>;
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> KeyPad = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">width:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">100</span></span></span></span><span class="xml"><span class="hljs-tag">%" }}&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">display:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">flex</span></span></span></span><span class="xml"><span class="hljs-tag">", </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">flexDirection:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">row</span></span></span></span><span class="xml"><span class="hljs-tag">", </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">flexWrap:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">wrap</span></span></span></span><span class="xml"><span class="hljs-tag">" }}&gt;</span></span></span><span class="xml">
+        {/* Later we will put some code in here */}
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  );
+};
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> KeyPad;</code></pre>
+<p>You may be wondering at this point why we need to import React in the component if we are not even using it. Well we are actually using it as wherever you use the JSX syntax, you need to have React imported into the context of the component.</p>
+<hr>
+<h3 id="quick-recap">Quick Recap</h3>
+<ul>
+<li>We have created our first 2 components of the calculator; the display and the keyboard.</li>
+<li>React components are just JavaScript functions that return HTML content out of them.</li>
+</ul>
+<p>Now there are a couple of components to work with, let us move onto the next part. We will see our first case of using hooks in React and also extract some code into a separate file to make it easier to create the keys for the keyboard.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

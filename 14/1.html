@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Let's Build a Live Chatroom!</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h4 id="why-chatroom">Why chatroom?</h4>
+<p>Without thinking deeply about it, a live chatroom seems like a really simple thing with a form to submit message, and a container to display conversations.</p>
+<p>But a chat actually contains lots of frontend logic such as</p>
+<ul>
+<li>clearing the input after sending a message</li>
+<li>keep conversation container scrolled to the bottom to always show latest message</li>
+<li>what happens when your input message is too long</li>
+<li>what to do when someone joins the chatroom</li>
+<li>and so on...</li>
+</ul>
+<p>And as you already know, React is great at handling complicated UX logic. It's time to put what you have learnt into practice!</p>
+<h4 id="lets-start-with-the-look">Let's start with the Look</h4>
+<p>Use <a target="_blank" href="https://github.com/facebook/create-react-app">create-react-app</a> to generate the boilerplate codes:</p>
+<pre><code class="hljs sql">npx <span class="hljs-keyword"><span class="hljs-keyword">create</span></span>-react-app <span class="hljs-keyword"><span class="hljs-keyword">next</span></span>-chat-app
+cd <span class="hljs-keyword"><span class="hljs-keyword">next</span></span>-chat-app
+npm <span class="hljs-keyword"><span class="hljs-keyword">start</span></span></code></pre><p>Sketch out your own design of a group chat room. The design needs to have these components:</p>
+<p><strong>1. An area to display all the conversations sent by everyone</strong></p>
+<p><strong>2. An area that lists out all the online users</strong></p>
+<p><strong>3. A form that allows user to type message and press send</strong></p>
+<blockquote>
+<p>Note: For this chat app, username is automatically generated for each user</p>
+</blockquote>
+<h3 id="challenge">Challenge</h3>
+<p><strong>Code out your design.</strong></p>
+<p>Some resources that might help:</p>
+<ul>
+<li><p>React Frontend Frameworks:</p>
+<ul>
+<li><a target="_blank" href="https://facebook.github.io/create-react-app/docs/adding-bootstrap">Reactstrap</a></li>
+<li><a target="_blank" href="https://react.semantic-ui.com/usage">Semantic UI</a></li>
+<li><a target="_blank" href="https://ant.design/docs/react/introduce">Ant Design (by Alibaba)</a></li>
+</ul>
+</li>
+<li><p>UI Inspirations:</p>
+<ul>
+<li><a target="_blank" href="http://collectui.com/challenges/direct-messaging">collectUI</a></li>
+<li><a target="_blank" href="https://www.google.com/search?biw=1440&amp;bih=767&amp;tbm=isch&amp;sa=1&amp;ei=46IPXPxjj_etAfSgtdAF&amp;q=group+chat+room&amp;oq=group+chat+room&amp;gs_l=img.3...0.0..20194...0.0..0.0.0.......1......gws-wiz-img.rqK7suTrKHY">google images</a></li>
+<li><a target="_blank" href="https://medium.muz.li/chat-messaging-ui-inspiration-a42201e33fba">Muzli</a></li>
+</ul>
+</li>
+</ul>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

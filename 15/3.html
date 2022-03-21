@@ -1,0 +1,41 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Send and Receive Messages</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h2 id="send-and-receive-message">Send and Receive Message</h2>
+<p>All these while your <code>sendMessage</code> function simply changes the state of <code>conversations</code>, and it's not being broadcast to every online user.</p>
+<p>The 2 related event names are:</p>
+<ul>
+<li><strong>BROADCAST_MESSAGE</strong></li>
+<li><strong>RECEIVE_BROADCAST</strong></li>
+</ul>
+<p>Let's take a look at the server-side code:</p>
+<pre><code class="language-js hljs javascript">  socket.on(<span class="hljs-string"><span class="hljs-string">'BROADCAST_MESSAGE'</span></span>, data =&gt; {
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> {username, message, timestamp} = data
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (username &amp;&amp; message &amp;&amp; timestamp &amp;&amp; <span class="hljs-keyword"><span class="hljs-keyword">typeof</span></span> username == <span class="hljs-string"><span class="hljs-string">'string'</span></span> &amp;&amp; <span class="hljs-keyword"><span class="hljs-keyword">typeof</span></span> message == <span class="hljs-string"><span class="hljs-string">'string'</span></span>) {
+      io.emit(<span class="hljs-string"><span class="hljs-string">'RECEIVE_BROADCAST'</span></span>, data)
+    } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+      socket.emit(<span class="hljs-string"><span class="hljs-string">'HAS_ERROR'</span></span>, <span class="hljs-string"><span class="hljs-string">'BROADCAST_MESSAGE must submit an object with username (string), message (string) and timestamp (number)'</span></span>)
+    }
+  })</code></pre>
+<p>So on client side, whatever <code>data</code> you emit through <strong>BROADCAST_MESSAGE</strong>, will be received by those who are listening on <strong>RECEIVE_BROADCAST</strong>, as long as the data follow the format of:</p>
+<pre><code class="hljs css">{
+  <span class="hljs-attribute"><span class="hljs-attribute">username</span></span>: string,
+  message: string,
+  timestamp: number
+}</code></pre><p>Make that work :)</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

@@ -1,0 +1,97 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Arrow Function</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>The arrow function is a relatively new introduction to JavaScript in ES6. It allows developers to write more concise functions by removing some unnecessary syntax and refining the usage of <code>this</code> within functions.</p>
+<h3 id="anatomy-of-the-arrow-function">Anatomy of the Arrow Function</h3>
+<p><img src="data:image/png;base64,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" alt="arrow"></p>
+<p>The arrow function gets rid of unneeded syntax from typical JS function declarations.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// no parameter</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> Hello = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">'Hello World'</span></span>)
+}
+
+<span class="hljs-comment"><span class="hljs-comment">// single parameter</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myFunc = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="hljs-function"> =&gt;</span></span> x * <span class="hljs-number"><span class="hljs-number">2</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// with curly braces, you need to return explicitly</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myFuncBlock = <span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">x, y</span></span></span><span class="hljs-function">) =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> x * y
+}
+
+<span class="hljs-comment"><span class="hljs-comment">// DOM Event Listener</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'header'</span></span>).addEventListener(<span class="hljs-string"><span class="hljs-string">'click'</span></span>, e =&gt; {
+  e.preventDefault()
+  alert(<span class="hljs-string"><span class="hljs-string">'You clicked on header!'</span></span>)
+})
+</code></pre>
+<p><strong>Notice how:</strong></p>
+<ol>
+<li><p>The <code>function</code> keyword is no longer needed and is replaced with the <code>=&gt;</code></p>
+</li>
+<li><p>The <code>return</code> keyword is needed only when using a code-block</p>
+<pre><code class="language-js hljs javascript">   <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> multiply = <span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">a, b</span></span></span><span class="hljs-function">) =&gt;</span></span> {
+     <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> a * b
+   }</code></pre>
+<p> is equivalent to:</p>
+<pre><code class="language-js hljs javascript">   <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> multiply = <span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">a, b</span></span></span><span class="hljs-function">) =&gt;</span></span> a * b</code></pre>
+<p> is also equivalent to:</p>
+<pre><code class="language-js hljs javascript">   <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> multiply = <span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">a, b</span></span></span><span class="hljs-function">) =&gt;</span></span> (
+     a * b
+   )</code></pre>
+</li>
+</ol>
+<p>Read more about: <a target="_blank" href="https://medium.com/@thejasonfile/es5-functions-vs-es6-fat-arrow-functions-864033baa1a">ES6 Arrow Function vs ES5 Functions</a></p>
+<hr>
+<h3 id="exercises">Exercises</h3>
+<p><strong>You may use <code>node &lt;filename&gt;.js</code> command to execute JS file.</strong></p>
+<p><strong>EX 1:</strong> Convert these functions into the new Arrow syntax</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">addAndMultiply</span></span></span><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">x, y, z</span></span></span><span class="hljs-function">) </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> ((x + y) * z)
+}
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(addAndMultiply(<span class="hljs-number"><span class="hljs-number">4</span></span>,<span class="hljs-number"><span class="hljs-number">8</span></span>,<span class="hljs-number"><span class="hljs-number">5</span></span>)) <span class="hljs-comment"><span class="hljs-comment">// 60</span></span></code></pre>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// Also fix the string interpolation using Template Literals</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">selfIntro</span></span></span><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">name, hobby, count</span></span></span><span class="hljs-function">) </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-string"><span class="hljs-string">"My name is "</span></span> + name + <span class="hljs-string"><span class="hljs-string">". I practice "</span></span> + hobby + <span class="hljs-string"><span class="hljs-string">" "</span></span> + count + <span class="hljs-string"><span class="hljs-string">" times a day."</span></span>
+}
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(selfIntro(<span class="hljs-string"><span class="hljs-string">'Shanqyeet'</span></span>, <span class="hljs-string"><span class="hljs-string">'Kendama'</span></span>, <span class="hljs-string"><span class="hljs-string">'18'</span></span>)) <span class="hljs-comment"><span class="hljs-comment">// My name is Shanqyeet. I practice Kendama 18 times a day.</span></span></code></pre>
+<hr>
+<p><strong>EX 2:</strong> Simplify this arrow function</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// tips: remove curly braces</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">let</span></span> squared = <span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">x</span></span></span><span class="hljs-function">) =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> x * x
+}</code></pre>
+<hr>
+<p><strong>EX 3:</strong><br>Using <strong>arrow function</strong> and <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map">Array.map()</a>, complete <code>pricesWithTax</code> to get desired output:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> prices = [<span class="hljs-number"><span class="hljs-number">1.00</span></span>, <span class="hljs-number"><span class="hljs-number">2.00</span></span>, <span class="hljs-number"><span class="hljs-number">3.00</span></span>, <span class="hljs-number"><span class="hljs-number">4.00</span></span>]
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> gst = <span class="hljs-number"><span class="hljs-number">0.06</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> pricesWithTax = ... <span class="hljs-comment"><span class="hljs-comment">// Complete this with .map</span></span>
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(pricesWithTax) <span class="hljs-comment"><span class="hljs-comment">// you should get [1.06, 2.12, 3.18, 4.24]</span></span>
+</code></pre>
+<p><strong>EX 4:</strong><br>Now do it again <strong>without using <code>.map</code></strong>, use <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">.forEach</a> instead:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> prices = [<span class="hljs-number"><span class="hljs-number">1.00</span></span>, <span class="hljs-number"><span class="hljs-number">2.00</span></span>, <span class="hljs-number"><span class="hljs-number">3.00</span></span>, <span class="hljs-number"><span class="hljs-number">4.00</span></span>]
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> gst = <span class="hljs-number"><span class="hljs-number">0.06</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// Complete this!</span></span>
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(pricesWithTax) <span class="hljs-comment"><span class="hljs-comment">// you should get [1.06, 2.12, 3.18, 4.24]</span></span>
+</code></pre>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

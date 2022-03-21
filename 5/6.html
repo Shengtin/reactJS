@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Calculator: Part 3</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Now that we've built what resembles a calculator, we can start working on the functionality.</p>
+<p>We are going to use the React built-in hooks to create some states and then we are going to be passing some props down the component tree to display the output and also to give the buttons some functions to run when they are pressed.</p>
+<h3 id="creating-the-states">Creating the states</h3>
+<p>For this we are going to need to use the <code>useState</code> hook from React. What this will do is give us two things: first, a function to change the value of the state and secondly, the state itself.</p>
+<p>We are going to do this at the highest level component which in this case will be the <code>App.js</code>, which should look a little something that resembles what you see below.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> KeyPad <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"./components/Keypad"</span></span>;
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> CalculatorDisplay <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"./components/CalculatorDisplay"</span></span>;
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">App</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">width:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">100</span></span></span></span><span class="xml"><span class="hljs-tag">%" }}&gt;</span></span></span><span class="xml">
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">style</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{{</span></span></span></span><span class="xml"><span class="hljs-tag"> 
+          </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">width:</span></span></span></span><span class="xml"><span class="hljs-tag"> "</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">350px</span></span></span></span><span class="xml"><span class="hljs-tag">", 
+          </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">position:</span></span></span></span><span class="xml"><span class="hljs-tag"> '</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">absolute</span></span></span></span><span class="xml"><span class="hljs-tag">', 
+          </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">top:</span></span></span></span><span class="xml"><span class="hljs-tag"> '</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">50</span></span></span></span><span class="xml"><span class="hljs-tag">%', 
+          </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">left:</span></span></span></span><span class="xml"><span class="hljs-tag"> '</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">50</span></span></span></span><span class="xml"><span class="hljs-tag">%', 
+          </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">transform:</span></span></span></span><span class="xml"><span class="hljs-tag"> '</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">translate</span></span></span></span><span class="xml"><span class="hljs-tag">(</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">-50</span></span></span></span><span class="xml"><span class="hljs-tag">%, </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">-50</span></span></span></span><span class="xml"><span class="hljs-tag">%)' 
+          }}
+        &gt;</span></span></span><span class="xml">
+          </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">CalculatorDisplay</span></span></span></span><span class="xml"><span class="hljs-tag"> /&gt;</span></span></span><span class="xml">
+          </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">KeyPad</span></span></span></span><span class="xml"><span class="hljs-tag"> /&gt;</span></span></span><span class="xml">
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/&gt;</span></span></span><span class="xml">
+  );
+}
+
+export default App;</span></span></code></pre>
+<p>Don't worry if it doesn't look exactly like this. As long as you have something along these lines and when you view the webpage in your browser and you can see something that resembles a calculator, you are on the right track.</p>
+<p>So now we are going to need to create some functions to handle the different inputs the calculator has as well as create the state for the output.</p>
+<p>Firstly, you are going to need to import the <code>useState</code> from React. Update the first line so that it resembles this.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, { useState } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>;</code></pre>
+<p>When we are importing from other modules, if it is a default export, we can import without the <code>{}</code> and provide any name we wish to the exported item, but some items are named exports and that when we need to use the <code>{}</code> and provide the exact name that was given to the item being exported.</p>
+<p>Now that the useState hook is imported to use, let's go ahead and create our first state for the calculator.</p>
+<p>You will need to place the following before the return statement in the <code>App</code> function.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [result, setResult] = useState(<span class="hljs-string"><span class="hljs-string">""</span></span>);</code></pre>
+<p>You can see that now you have created a state called <code>result</code> and a function called <code>setResult</code> that can be used to update the result value. In this case, we initialize the state with an initial value that is an empty string <code>""</code>.</p>
+<p><strong>REMEMBER</strong> You should never directly mutate the original state (which in this case is <code>result</code>). You should only ever use the function provided to <em>update</em> the value original state. In this case, the function <code>setResult</code> will be used to update the value of <code>result</code>.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

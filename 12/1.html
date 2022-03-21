@@ -1,0 +1,45 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Image Upload Page</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>What would Nextagram be if you weren't able to take a selfie and share it with the world?</p>
+<p>We are going to create our own image uploading form that will talk with the back-end built for you. By the end you should be able to successfully upload an image to the server under the account of the person that is logged in and then be able to display the newly posted image.</p>
+<p>Let's go ahead and build our image uploading feature.</p>
+<h3 id="create-a-new-page">Create a new page</h3>
+<p>Inside of your <code>pages</code> folder in your app. Create a new file called UploadPage.js, this component will house our image uploading logic, and within it we will later create some extra components to help break up our code just a little bit more.</p>
+<p>Inside your file create a new class for <code>UploadPage</code>, in here we will handle everything we need to upload images to the server so that they can be publicly viewable and accessible through our other end points.</p>
+<p>You should end up with something that looks like this:</p>
+<pre><code class="language-JS hljs"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, {useState} <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>;
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> UploadPage = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [imageFile, setImageFile] = useState(<span class="hljs-literal"><span class="hljs-literal">null</span></span>)
+
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span>(
+      <span class="hljs-comment"><span class="hljs-comment">// Your code will go here</span></span>
+    )
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> UploadPage;
+</code></pre>
+<hr>
+<h3 id="thoughts">Thoughts:</h3>
+<ul>
+<li>What are the components you expect to need in order to handle uploading images?</li>
+<li>Instead of creating a new page for uploading, could it be done with just a modal? If you are feeling brave, maybe you can give this a try.</li>
+<li>What other data will you need to store inside of the state?</li>
+</ul>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

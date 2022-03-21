@@ -1,0 +1,50 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Live Previewing the Image</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Now we will create a new container to hold a preview of the image that we are going to upload. Since we are using <code>React</code> we can integrate this neat little feature nice and easily and it's always great to see what you are uploading before you hit that upload button.</p>
+<p>We will need to have an extra state to hold the preview image URL and a container to show the preview image.</p>
+<p>A simple card will be enough for this purpose.</p>
+<pre><code class="language-JS hljs"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [previewImage, setPreviewImage] = useState(<span class="hljs-literal"><span class="hljs-literal">null</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [message, setMessage] = useState(<span class="hljs-string"><span class="hljs-string">''</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword">return</span></span>(
+<span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">className</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"card"</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+  {previewImage ? (
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">img</span></span></span></span><span class="xml"><span class="hljs-tag">
+      </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">src</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{previewImage}</span></span></span></span><span class="xml"><span class="hljs-tag">
+      </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">width</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"50%"</span></span></span></span><span class="xml"><span class="hljs-tag">
+      </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">height</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"50%"</span></span></span></span><span class="xml"><span class="hljs-tag">
+    /&gt;</span></span></span><span class="xml">
+    ) : (
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h3</span></span></span></span><span class="xml"><span class="hljs-tag">  </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">className</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"text-center"</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      {message ? message : "Live Preview"}
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h3</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+  )}
+</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+)</span></span></code></pre>
+<p>We can display a simple message that tells us <code>Live Preview</code> and once we have chosen a file we can then display a preview of the image to the user.</p>
+<h3 id="create-a-preview">Create a Preview</h3>
+<p>We can use a built-in JS function that generates a URL from the uploaded image file. This allows us to display the image in the preview box.</p>
+<p>We can also handle this during the onChange event happening on the file input.</p>
+<pre><code class="language-JS hljs">setPreviewImage(URL.createObjectURL(e.target.files[<span class="hljs-number"><span class="hljs-number">0</span></span>]))
+setImageFile(e.target.files[<span class="hljs-number"><span class="hljs-number">0</span></span>])</code></pre>
+<p>We generate a URL using the <code>URL.createObjectURL()</code> function and we pass in the file we want to generate the URL for. The file comes from the <code>event.target.files[0]</code> that we previously accessed to store the file. By adding this to your state, you should now be able to see the image to be uploaded previewed in the container you just created.</p>
+<p>Voila! You can now create an image preview for uploading new images to the server. Easy as that.</p>
+<hr>
+<h3 id="extra">Extra:</h3>
+<p>Why not style the Live Preview? You can add a little loading indicator to simulate processing the file. All these small details that are easy to implement are what make React so great, make use of what you have available and build the best possible experience for the user.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

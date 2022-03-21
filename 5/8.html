@@ -1,0 +1,86 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Tic Tac Toe</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Let's build Tic Tac Toe again, but this time in React.</p>
+<p>This is a very important step to realize the advantage React has over no-framework-DOM-manipulation, and help you to <a target="_blank" href="https://www.codementor.io/radubrehar/thinking-in-react-8duata34n">think in React</a>.</p>
+<h3 id="step-1-build-a-static-version-in-react">Step 1: Build a static version in React</h3>
+<p>Use <code>create-react-app</code> to generate a new app for Tic Tac Toe.</p>
+<p>Ignore state for now. Focus on the <code>return()</code> in your function and your CSS.</p>
+<p>You may also try out <a target="_blank" href="https://www.styled-components.com/docs/basics#installation">styled-components</a>!</p>
+<hr>
+<h3 id="step-2-identify-the-state">Step 2: Identify the State</h3>
+<p>To make your app interactive, you will need to <strong>trigger changes through <code>state</code></strong>.</p>
+<p>React <code>state</code> stores a set of data that needs to be changed when user interacts with your app. And bear in mind a <code>state</code> change will trigger a <code>rendering</code>, therefore updating what the user sees.</p>
+<p>For example, if you want a <code>turn</code> variable to keep track of number of turns, then you need to put that into your initial state.</p>
+<p>For Tic Tac Toe, it is recommended that you start with the following state:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [board, setBoard] = useState([
+      <span class="hljs-string"><span class="hljs-string">''</span></span>, <span class="hljs-string"><span class="hljs-string">''</span></span>, <span class="hljs-string"><span class="hljs-string">''</span></span>,
+      <span class="hljs-string"><span class="hljs-string">''</span></span>, <span class="hljs-string"><span class="hljs-string">''</span></span>, <span class="hljs-string"><span class="hljs-string">''</span></span>, 
+      <span class="hljs-string"><span class="hljs-string">''</span></span>, <span class="hljs-string"><span class="hljs-string">''</span></span>, <span class="hljs-string"><span class="hljs-string">''</span></span>
+    ])</code></pre>
+<p>In your <code>return()</code>, you can display each box like so:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+  <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    {
+      board.map((value, index) =&gt; {
+        return (
+          </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">key</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{index}</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">id</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{index}</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">{value}</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+        )
+      })
+    }
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+)</code></pre>
+<ol>
+<li><code>board</code> is an array of 9 strings ('', 'X' or 'O')</li>
+<li>Using <code>.map</code>, we transform each element of the array into <code>&lt;div&gt;</code></li>
+<li>The JSX elements you generated using <code>.map</code> must have <code>key</code> prop. The <code>key</code> for each element must be unique, in this case we <code>index</code> to achieve that.</li>
+</ol>
+<p>Extra Read: <a target="_blank" href="https://dev.to/jtonzing/the-significance-of-react-keys---a-visual-explanation--56l7">Why Do We Need React Keys?</a></p>
+<hr>
+<h3 id="step-3-identify-the-events">Step 3: Identify the events</h3>
+<p>What are the events user can do to interact with your app? Define the event handler and attach it to the right DOM.</p>
+<blockquote>
+<p>Use React Dev Tool (the 'React' tab inside Chrome Developer Tool) to see live changes made to the <code>state</code></p>
+</blockquote>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleClick = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">e</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(e.target.name) <span class="hljs-comment"><span class="hljs-comment">// will print the 'name' attribute of the button you press</span></span>
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+  <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">name</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"a"</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onClick</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{handleClick}</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">A</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">name</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"b"</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onClick</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{handleClick}</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">B</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+)</code></pre>
+<hr>
+<h3 id="step-4-test-and-improve">Step 4: Test and Improve!</h3>
+<p>Test out edge cases:</p>
+<ul>
+<li>pressing the same square multiple times</li>
+<li>test out a tie game</li>
+<li>how does the game restart</li>
+<li>etc etc</li>
+</ul>
+<hr>
+<h3 id="step-5-compare-with-your-old-tic-tac-toe">Step 5: Compare with your old Tic Tac Toe</h3>
+<p>Compare your working React Tic Tac Toe with the old one.</p>
+<p>Discuss with your friends and mentors - What is the difference? Which one do you prefer?</p>
+<blockquote>
+<p>Note: setState() does not immediately mutate state but creates a pending state transition. Accessing state after calling this method can potentially return the existing value. There is no guarantee of synchronous operation of calls to setState and calls may be batched for performance gains.</p>
+</blockquote>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

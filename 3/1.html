@@ -1,0 +1,103 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Learn Command Line</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Modern-day Operating Systems such as Windows / Mac / Ubuntu are easy to use. You get beautiful buttons and graphics which makes it intuitive for your average consumer to interact with the computer. There is another way to interact with your computer! Enter the <code>command line</code> / <code>prompt</code> / <code>console</code> / <code>terminal</code> (interchangeable terminologies). We will use the term <code>Terminal</code> since it's shorter.</p>
+<p>Because you are no longer an average consumer and are now a young (or young at heart) code padawan, you want full control of your computer through the use of the terminal to get things done!</p>
+<h2 id="challenge">Challenge</h2>
+<p><strong>Step 1:</strong> Start by opening up your Terminal (Mac) [Use spotlight; cmd + space] or Power Shell (Windows) [Use search]</p>
+<p><strong>Step 2:</strong> Try the following commands one by one and see what they do then deduce what they each mean</p>
+<hr>
+<h4 id="part-1-navigating-through-your-folders--files-in-the-terminal">Part 1: Navigating through your folders &amp; files in the terminal</h4>
+<p>Type the following commands and then hit enter (one-by-one)</p>
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>Unix Command (MacOS, Linux)</th>
+<th>PowerShell</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>pwd</code></td>
+<td><code>pwd</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ls</code></td>
+<td><code>ls</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>cd &lt;folder_or_directory_name&gt;</code></td>
+<td>same</td>
+<td><em>just pick a folder name based on the names you found from the previous <code>ls</code> command</em></td>
+</tr>
+<tr>
+<td><code>pwd</code></td>
+<td><code>pwd</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>cd ..</code></td>
+<td>same</td>
+<td></td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="part-2-manipulating-folders--files-in-the-terminal">Part 2: Manipulating folders &amp; files in the terminal</h4>
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>Unix Command (MacOS, Linux)</th>
+<th>Power Shell</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>touch &lt;file_name&gt;</code></td>
+<td><code>New-Item &lt;file_name&gt;</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>mkdir &lt;folder_name&gt;</code></td>
+<td><code>mkdir &lt;folder_name</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>rm &lt;file_name&gt;</code></td>
+<td><code>Remove-Item &lt;file_name&gt;</code></td>
+<td><strong>WARNING!</strong> <em>This command deletes file permanently (does not go through trash / recycle bins)</em></td>
+</tr>
+<tr>
+<td><code>rm -r &lt;file_name&gt;</code></td>
+<td><code>Remove-Item &lt;file_name&gt;</code></td>
+<td><strong>WARNING!</strong> <em>This command deletes an entire folder permanently (does not go through trash / recycle bins)</em></td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="part-3-command-flags">Part 3: Command flags</h4>
+<p>Most commands on your command line gives you additional options (flags). These flags are usually done by appending <code>&lt;space&gt;-&lt;flag&gt;</code> onto an existing command.</p>
+<p><strong>Mac Terminal</strong><br>Remember <code>ls</code>? Now try <code>ls -la</code><br>What do you see? Notice any difference from just using <code>ls</code>?</p>
+<p><code>-la</code> is a flag specific to the <code>ls</code> command</p>
+<p>Most commands have flags you can use. To get a full list of flags you can supply with commands, <code>Google &lt;command_name&gt; flags</code>.</p>
+<p>For e.g. if you wanted to find all the flags for <code>ls</code> just Google <code>ls flags</code>. Here, click this <a target="_blank" href="http://lmgtfy.com/?q=ls+flags">http://lmgtfy.com/?q=ls+flags</a></p>
+<p><strong>Power Shell</strong><br>You know <code>ls</code> list out all the files in the current folder, try running the command with flags, ie: <code>ls -Directory</code> and <code>ls -File</code></p>
+<p>For more flags on <code>ls</code>, you can check out <a target="_blank" href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem?view=powershell-6">this link</a>.</p>
+<hr>
+<p>This should get you started! We will learn more commands and flags as we move along.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

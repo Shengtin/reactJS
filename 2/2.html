@@ -1,0 +1,124 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Object</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Take a look at the following <code>car</code> Javascript object:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> owner = <span class="hljs-string"><span class="hljs-string">'nicholas'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> car = {
+  <span class="hljs-attr"><span class="hljs-attr">brand</span></span>: <span class="hljs-string"><span class="hljs-string">'Tesla'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">model</span></span>: <span class="hljs-string"><span class="hljs-string">'Model X'</span></span>,
+  [owner]: {
+    <span class="hljs-attr"><span class="hljs-attr">age</span></span>: <span class="hljs-number"><span class="hljs-number">21</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">gender</span></span>: <span class="hljs-string"><span class="hljs-string">'male'</span></span>,
+  },
+  <span class="hljs-attr"><span class="hljs-attr">drive</span></span>: <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">'psssttttt'</span></span>)
+  }
+}
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(car.brand) <span class="hljs-comment"><span class="hljs-comment">// Tesla</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(car[<span class="hljs-string"><span class="hljs-string">'model'</span></span>]) <span class="hljs-comment"><span class="hljs-comment">// Model X</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(car.nicholas) <span class="hljs-comment"><span class="hljs-comment">// {age: 21, gender: 'male'}</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// These 2 are equivalent:</span></span>
+car.drive() <span class="hljs-comment"><span class="hljs-comment">// psssttttt</span></span>
+car[<span class="hljs-string"><span class="hljs-string">'drive'</span></span>]() <span class="hljs-comment"><span class="hljs-comment">// psssttttt</span></span></code></pre>
+<p>Inside the <code>car</code> object, <code>brand</code>, <code>model</code> and <code>drive</code> are known as <strong>property name</strong> or <strong>property key</strong>, while their respective values such as <code>'Tesla'</code> or <code>'Model X'</code> are known as <strong>property value</strong>.</p>
+<br>
+
+<h4 id="1-computed-property">1. Computed Property</h4>
+<p>The use of <em>square bracket</em> around a property name is known as <strong>computed property</strong>.</p>
+<p>When we write</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> owner = <span class="hljs-string"><span class="hljs-string">'nicholas'</span></span>
+{[owner]: {<span class="hljs-attr"><span class="hljs-attr">age</span></span>: <span class="hljs-number"><span class="hljs-number">21</span></span>, <span class="hljs-attr"><span class="hljs-attr">gender</span></span>: <span class="hljs-string"><span class="hljs-string">'male'</span></span>}}</code></pre>
+<p>Due to the square brackets, the key <code>[owner]</code> will refer to the variable <code>owner</code>.</p>
+<p>Since <code>const owner = 'nicholas'</code>, it becomes:</p>
+<pre><code class="language-js hljs javascript">{<span class="hljs-attr"><span class="hljs-attr">nicholas</span></span>: {<span class="hljs-attr"><span class="hljs-attr">age</span></span>: <span class="hljs-number"><span class="hljs-number">21</span></span>, <span class="hljs-attr"><span class="hljs-attr">gender</span></span>: <span class="hljs-string"><span class="hljs-string">'male'</span></span>}}</code></pre>
+<br>
+
+<h4 id="2-accessing-object-properties">2. Accessing object properties</h4>
+<p>To access properties on an object, you can either use <strong>dot</strong> notation:  <code>car.brand</code>, or  <strong>square bracket</strong> notation: <code>car['brand']</code>.</p>
+<br>
+
+<h4 id="3-function-as-property-value">3. Function as property value</h4>
+<p>We can also put function as an object property value. For example:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> car = {
+  <span class="hljs-attr"><span class="hljs-attr">ownerName</span></span>: <span class="hljs-string"><span class="hljs-string">'Nicholas'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">drive</span></span>: <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">`</span><span class="hljs-subst"><span class="hljs-string"><span class="hljs-subst">${</span></span><span class="hljs-keyword"><span class="hljs-string"><span class="hljs-subst"><span class="hljs-keyword">this</span></span></span></span><span class="hljs-string"><span class="hljs-subst">.ownerName}</span></span></span><span class="hljs-string"> drives his car away...`</span></span>)
+  }
+}</code></pre>
+<p>It is also completely equivalent to:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> car = {
+  <span class="hljs-attr"><span class="hljs-attr">ownerName</span></span>: <span class="hljs-string"><span class="hljs-string">'Nicholas'</span></span>,
+  drive() {
+    <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">`</span><span class="hljs-subst"><span class="hljs-string"><span class="hljs-subst">${</span></span><span class="hljs-keyword"><span class="hljs-string"><span class="hljs-subst"><span class="hljs-keyword">this</span></span></span></span><span class="hljs-string"><span class="hljs-subst">.ownerName}</span></span></span><span class="hljs-string"> drives his car away...`</span></span>)
+  }
+}
+</code></pre>
+<p>The keyword <code>this</code> exists whenever a function is defined.</p>
+<p><code>this</code> by default will refer to the owner of the function. In this case, the <code>car</code> object owns the function <code>drive()</code>.</p>
+<p>Inside the function <code>drive()</code>, <code>ownerName</code> is undefined to the function. Therefore, we use <code>this.ownerName</code> to access "car's ownerName".</p>
+<br>
+
+<h4 id="4-shorthand-property-names">4. Shorthand Property Names</h4>
+<p>Basically, this:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> price = <span class="hljs-string"><span class="hljs-string">'$30,000'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> car = {
+  <span class="hljs-attr"><span class="hljs-attr">price</span></span>: price,
+  <span class="hljs-attr"><span class="hljs-attr">model</span></span>: <span class="hljs-string"><span class="hljs-string">'Tesla'</span></span>
+}</code></pre>
+<p>can be rewritten as:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> price = <span class="hljs-string"><span class="hljs-string">'$30,000'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> car = {
+  price, <span class="hljs-comment"><span class="hljs-comment">//shorthand here</span></span>
+  model: <span class="hljs-string"><span class="hljs-string">'Tesla'</span></span>
+}</code></pre>
+<hr>
+<h3 id="exercise">Exercise</h3>
+<p>Complete the following code <strong>by only modifying the user object</strong>. Make it such that all the code will work as intended (read the code comments)</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// randomString is simply 7 characters generated randomly:</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> randomString = <span class="hljs-built_in"><span class="hljs-built_in">Math</span></span>.random().toString(<span class="hljs-number"><span class="hljs-number">36</span></span>).substring(<span class="hljs-number"><span class="hljs-number">6</span></span>)
+
+<span class="hljs-comment"><span class="hljs-comment">// ------------ only modify the following object --------------</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> user = {
+  <span class="hljs-comment"><span class="hljs-comment">// complete the code</span></span>
+}
+<span class="hljs-comment"><span class="hljs-comment">// ------------------------------------------------------------------------------</span></span>
+
+
+<span class="hljs-comment"><span class="hljs-comment">// DO NOT MODIFY THE FOLLOWING CODE</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// Edit the user object such that everything below works as intended</span></span>
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(user.firstName) <span class="hljs-comment"><span class="hljs-comment">// print "Joey"</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(user[<span class="hljs-string"><span class="hljs-string">'lastName'</span></span>]) <span class="hljs-comment"><span class="hljs-comment">// print "Tribbiani"</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(user.fullName()) <span class="hljs-comment"><span class="hljs-comment">// print "Joey Tribbiani"</span></span>
+
+user.actions.laugh() <span class="hljs-comment"><span class="hljs-comment">// print "Muahaha"</span></span>
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(user.actions.getJoke()) <span class="hljs-comment"><span class="hljs-comment">// print "A lawyer walks into a bar exam"</span></span>
+
+user.hobbies.forEach(<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">hobby</span></span></span><span class="hljs-function">) </span></span>{
+  hobby()
+})
+<span class="hljs-comment"><span class="hljs-comment">// The loop above should print out these 3 lines:</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// I like to eat</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// I love to sleep</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// I am not real</span></span>
+
+<span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(user[randomString]) <span class="hljs-comment"><span class="hljs-comment">// print "Hello World"</span></span></code></pre>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

@@ -1,0 +1,91 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Hooks</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h3 id="introducing-hooks">Introducing Hooks</h3>
+<p>Hooks! Hooks! Hooks! You are going to hear them spoken about a lot during your time working with React.</p>
+<p>Hooks were introduced back in early-mid 2019. With them came a huge change for React development, but thankfully without any breaking changes. What I mean by that is, Hooks are backwards compatible, they will work fine with older code bases but allow you to adopt the new style of React without any functional issues in your apps (This isn't going to be a concern during this bootcamp, but in the working world old code bases are not likely to have been re-written to adopt Hooks fully yet).</p>
+<p>They are now the preferred way of writing React, and were designed to allow access to all the React features within <code>Functional Components</code>. They allow the compilation of JSX into much less code compared with writing <code>Class</code> based components.</p>
+<h3 id="what-hooks-should-you-know">What Hooks should you know?</h3>
+<p>During this bootcamp we will be covering the three most important Hooks that are the bare essentials to making your React app functional.</p>
+<ul>
+<li><code>useState()</code></li>
+<li><code>useEffect()</code></li>
+<li><code>useRef()</code></li>
+</ul>
+<p>We will go into detail what they are and how they work in the next few lessons.</p>
+<p>Later on we will also be using custom Hooks built into the 3rd party libraries we integrate with during the Nextagram project, as well as learning how to build your own custom Hooks.</p>
+<p>Another Hook you may want to read more on later is the following.</p>
+<ul>
+<li><code>useContext()</code></li>
+</ul>
+<p>This Hook could be quite beneficial during the Nextagram project for handling the user logged in.</p>
+<h3 id="what-do-hooks-look-like-then">What do Hooks look like then?</h3>
+<p>Let's take a look at an example of using Hooks in a React app.</p>
+<p>We can see the old way of building the component by using <code>class</code> and then compare it to the new way using Hooks.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">App</span></span></span><span class="hljs-class"> </span><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">extends</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">React</span></span></span><span class="hljs-class">.</span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">Component</span></span></span><span class="hljs-class"> </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">constructor</span></span>(){
+    <span class="hljs-keyword"><span class="hljs-keyword">super</span></span>(props)
+    <span class="hljs-keyword"><span class="hljs-keyword">this</span></span>.state = {
+      <span class="hljs-attr"><span class="hljs-attr">count</span></span>: <span class="hljs-number"><span class="hljs-number">0</span></span>
+    }
+  }
+
+  handleIncrement = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-keyword"><span class="hljs-keyword">this</span></span>.setState({
+      <span class="hljs-attr"><span class="hljs-attr">count</span></span>: <span class="hljs-keyword"><span class="hljs-keyword">this</span></span>.state.count + <span class="hljs-number"><span class="hljs-number">1</span></span>
+    })
+  }
+
+  render(){
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span>(
+      <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;&gt;</span></span></span><span class="xml">
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Count: {this.state.count}</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag"> 
+          </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onClick</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{this.handleIncrement}</span></span></span></span><span class="xml"><span class="hljs-tag">
+        &gt;</span></span></span><span class="xml">
+          Increase
+        </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/&gt;</span></span></span><span class="xml">
+    )
+  }
+}</span></span></code></pre>
+<p>Now let's see the equivalent of the above code using Hooks.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, { useState } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> App = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [count, setCount] = useState(<span class="hljs-number"><span class="hljs-number">0</span></span>)
+
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span>(
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Count: {count}</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">
+        </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onClick</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{()</span></span></span></span><span class="xml"><span class="hljs-tag"> =&gt;</span></span></span><span class="xml"> setCount(count + 1)}
+      &gt;
+        Increase
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/&gt;</span></span></span><span class="xml">
+  )
+}</span></span></code></pre>
+<p>As you can see just by looking there are huge benefits from using Hooks. First of all it just looks like regular old JavaScript and HTML, so it's much easier to read and understand. Secondly is the removal of the <code>this</code> word, which is an almighty benefit as <code>this</code> can be a very confusing word to understand. </p>
+<blockquote>
+<p>Sometimes when I'm writing Javascript I want to throw up my hands and say "this is bullshit!" but I can never remember what "this" refers to.</p>
+</blockquote>
+<p>Now you understand a little bit about what Hooks are about, let's go see how they work in greater detail.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

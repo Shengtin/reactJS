@@ -1,0 +1,79 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Toastify</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Let's go ahead and implement some toast's into our React Nextagram. (No, you can't eat this type, sorry! 🤪)</p>
+<p>It's all great being able to log in and out, but if the user doesn't see any visual cues that they have logged in or logged out, it can be a little confusing and is not great for the user experience.</p>
+<p>Thankfully in React, things have been made super easy and there is a great library out there that makes it foolproof to implement notifications and alert messages.</p>
+<h3 id="in-comes-react-toastify">In comes React Toastify</h3>
+<p>The React Toastify library is made to be as simple as possible to use. Implementation takes no more than 5 lines of code on its most basic implementation, however, it does allow for customizability if you wish to tweek it and make it more suited to your taste.</p>
+<p>Before you start, you are going to need to install the package dependencies into your React project.</p>
+<p>Go ahead and run the following command:</p>
+<pre><code class="language-bash">npm install --save react-toastify</code></pre>
+<p>Okay, now just hold on for a second. Why not test yourself? See if you can go and implement the library by yourself first before reading on.</p>
+<p>Check the documentation and examples <a target="_blank" href="https://fkhadra.github.io/react-toastify/">HERE</a></p>
+<h3 id="challenge">Challenge:</h3>
+<ul>
+<li>Implement notifications for the login process<ul>
+<li>Notify and welcome back the user on successful login</li>
+<li>Flash an error message if they provided invalid credentials</li>
+</ul>
+</li>
+<li>Implement for the signup process<ul>
+<li>Flash and notify if the signup is successful</li>
+<li>Notify the user of any errors during sign up</li>
+</ul>
+</li>
+</ul>
+<p><strong>If you managed to implement all of those, give yourself a pat on the back! Job well done!</strong></p>
+<hr>
+<h3 id="implementing-the-toast-notification">Implementing the Toast notification</h3>
+<p>If you have reached here, you are either curious as to what lies below, or, something didn't go right during the Toast implementation. Not to worry, let's just take a quick look at how to use the library!</p>
+<p><img src="https://next-courses-assets.s3.amazonaws.com/React.js_Javascript_-_Bootcamp/729bee37-a854-429a-b9de-931be15e75ad-toastify.gif" alt="toastify.gif"></p>
+<p>You will be aiming for this outcome by the end!</p>
+<p>In the most basic implementation, you need to place the ToastContainer component into your <code>App.js</code> file so that all child components will be able to access the container.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { ToastContainer } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react-toastify'</span></span>;
+
+<span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">ToastContainer</span></span></span></span><span class="xml"><span class="hljs-tag"> /&gt;</span></span></span></span></code></pre>
+<p>When you have your <code>ToastContainer</code> component in your <code>App.js</code>, you can now call upon the toast functions to initiate a toast.</p>
+<p>Before you do that, there is one more step you need to take and that is to import the styling for the notifications.</p>
+<p>Inside of your <code>index.js</code>, add the following line, similar to how you would have done to import the boostrap CSS for your Reactstrap library.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> <span class="hljs-string"><span class="hljs-string">"react-toastify/dist/ReactToastify.min.css"</span></span>;</code></pre>
+<p>Now you can move on to how to use the toast.</p>
+<p>Let's use the login as an example.</p>
+<p>On successful login you will notify the user that they have logged in successfully via a Toast notification.</p>
+<pre><code class="language-jsx hljs javascript">axios.post(<span class="hljs-string"><span class="hljs-string">'...'</span></span>, {
+... <span class="hljs-comment"><span class="hljs-comment">// Your code will be here</span></span>
+})
+.then(<span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">result</span></span></span><span class="hljs-function">) =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// Login in with localStorage</span></span>
+  toast.success(<span class="hljs-string"><span class="hljs-string">"Logged in successfully!"</span></span>, {
+        <span class="hljs-attr"><span class="hljs-attr">position</span></span>: <span class="hljs-string"><span class="hljs-string">"top-right"</span></span>,
+        <span class="hljs-attr"><span class="hljs-attr">autoClose</span></span>: <span class="hljs-number"><span class="hljs-number">5000</span></span>,
+        <span class="hljs-attr"><span class="hljs-attr">hideProgressBar</span></span>: <span class="hljs-literal"><span class="hljs-literal">false</span></span>,
+        <span class="hljs-attr"><span class="hljs-attr">closeOnClick</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span>,
+        <span class="hljs-attr"><span class="hljs-attr">pauseOnHover</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span>,
+        <span class="hljs-attr"><span class="hljs-attr">draggable</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span>
+      });
+})</code></pre>
+<p>You do not need to provide all of the settings, these are optional extras. You can read the documentation to see what settings and options you can change.</p>
+<p>The demo website also provides a nice toast builder that let's you try out the different settings and also provides you with the code conversion to implement the notification with those settings.</p>
+<hr>
+<p>Go have a play and try for yourself and see what different outcomes your can achieve by just changing a few of the settings and options.</p>
+<p>It's great that React has these libraries available to use and there are many more out there to achieve fully functional components right out of the box.</p>
+<p>Once you have implemented some toasts in your Nextagram you can move onto the next lesson. Good luck!</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

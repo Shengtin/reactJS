@@ -1,0 +1,104 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Modules in JavaScript</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>During the earlier calculator exercise and during your first introduction to React you would have noticed <code>imports</code> and <code>exports</code>. They would have looked something like this.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, { useState } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">App</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>)</span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span>(
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Hello World</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  )
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> App</code></pre>
+<p>Understanding how JavaScript modules work is important when working with not just React, but any JavaScript framework or even backend server.</p>
+<p>You do not need to have a deep understanding unless you plan to go ahead and write your own JavaScript packages but its key to know what is going on under the hood when you are working with other packages.</p>
+<p>It's important for exporting and importing your React Components later on.</p>
+<p>There are really 4 key ways in which modules are exported and imported so let's take a look at what they are.</p>
+<h3 id="named-export--import">Named Export / Import</h3>
+<p>Named exports are common in packages as it may be that multiple components and/or functions are exported from a single JS file.</p>
+<p>Named exports mean that the naming is explicit and the importing of the exports has to follow the same name they were exported as, confused? Let's take a look at that.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myName = <span class="hljs-string"><span class="hljs-string">"John"</span></span></code></pre>
+<p>This is how we would go about exporting a singular named variable, function or component from a module.</p>
+<p>So let's see what that results in when importing at the other end.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// otherFile.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { myName } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'variables.js'</span></span></code></pre>
+<p>As you can see the variable needs to be imported by wrapping it with the curly braces <code>{}</code>. The name MUST match the name of the exported variable or it will throw an error.</p>
+<h5 id="exporting-multiple-named">Exporting Multiple Named</h5>
+<p>Now you may be wondering what if you want to export multiple variables or functions from a single file, like was mentioned above. Well, let's have a look shall we?</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myName = <span class="hljs-string"><span class="hljs-string">'John'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myAge = <span class="hljs-number"><span class="hljs-number">30</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myAddress = <span class="hljs-string"><span class="hljs-string">'No.1 Jalan Kuala Lumpur'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> {myName, myAge, myAddress}</code></pre>
+<p>As you can see, all the variables that are being exported get passed into the curly braces like how they are imported at the other side.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// otherFile.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { myName, myAge, myAddress } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'variables.js'</span></span></code></pre>
+<p>We have now imported all the exported variables from the <code>variables.js</code> file.</p>
+<p>In some cases you may only want to use 1 or 2 of the exported variables in a single file so you can just provide the names of the ones you want and leave the ones you don't.</p>
+<h3 id="renaming-named-exports">Renaming Named Exports</h3>
+<p>In some cases it may be that some of the features of the modules have a clash in the name of your own components or functions, so it may be necessary to rename them to avoid any errors being thrown.</p>
+<p>It is also possible to rename on export of the feature from the module as well.</p>
+<p>Let's take a look at both ways.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myName = <span class="hljs-string"><span class="hljs-string">'John'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> { myName <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> name }</code></pre>
+<p>By using the <code>as</code> keyword we can change the name of the variable being exported to something else.</p>
+<p>On the other end it is also possible rename when importing the variable from the package or file.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myName = <span class="hljs-string"><span class="hljs-string">'John'</span></span></code></pre>
+<p>Now let's see how to rename on import.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// otherFile.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { myName <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> name } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'variables.js'</span></span></code></pre>
+<p>Everything making sense so far? Fear not, as long as you are aware of what is going on, it is fine for your experience with React.</p>
+<p>It is also possible to string together multiple exports and rename others while some remain the same name.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> {myName <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> name, myAge, myAddress <span class="hljs-keyword"><span class="hljs-keyword">as</span></span> address}</code></pre>
+<h3 id="default-exports">Default Exports</h3>
+<p>Now default exports are where things get a little different.</p>
+<p>Default exports mean that they are exported without a name, so this allows you to provide any naming you wish on the import side. However, what this means is that you can only ever have ONE default export per module.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> <span class="hljs-string"><span class="hljs-string">'John'</span></span></code></pre>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> name = <span class="hljs-string"><span class="hljs-string">'John'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> name</code></pre>
+<p>As you can see we don't even need to provide a variable, we can just export the value directly but alternatively you can export the variable, both are fine, see what suits you best and you find easiest to use.</p>
+<p>Let's see how to import at the other end.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// otherFile.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> myName <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'variables.js'</span></span></code></pre>
+<p>As you can see, the curly braces are expelled in the case of the default export and the name can be whatever you wish, it does not need to match anything on the exporting side.</p>
+<p>So what about if you have named and default exports?</p>
+<p>Well let's see how to do that!!!</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// variables.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> name = <span class="hljs-string"><span class="hljs-string">'John'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> myAge = <span class="hljs-number"><span class="hljs-number">30</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> { myAge }
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> name</code></pre>
+<p>Now at the other side, let's look at how to combine named and default imports.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-comment"><span class="hljs-comment">// otherFile.js</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> myName, { myAge } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'variables.js'</span></span></code></pre>
+<p>The only notable thing is that the default and named imports are simply seperated by a comma. Other than that they are just imported the same way as they are individually.</p>
+<hr>
+<p>That's it folks. Your crash course on modules is complete. You can now move on and get to the fun stuff.</p>
+<p>Again, just be aware of what is going on here with modules, it's important to know as you will be dealing with them in your React projects.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

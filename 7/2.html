@@ -1,0 +1,79 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Building Home Page</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>You are going to start with the Home Page of your Nextagram.<br>The way our homepage work is such that it will simply display all the registered users, along with their posts of images.</p>
+<p><a target="_blank" href="http://insta.nextacademy.com">Something like this</a> but you can come out with your own beautiful designs!</p>
+<p>We will hardcode some user data first to display them:</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">App</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [users, setUsers] = useState([
+    {
+      <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">1</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">"blake"</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">profileImage</span></span>:
+        <span class="hljs-string"><span class="hljs-string">"http://next-curriculum-instagram.s3.amazonaws.com/idol2-blake.jpg"</span></span>
+    },
+    {
+      <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">2</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">"ryanG"</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">profileImage</span></span>:
+        <span class="hljs-string"><span class="hljs-string">"http://next-curriculum-instagram.s3.amazonaws.com/idol1-ryan.jpg"</span></span>
+    },
+    {
+      <span class="hljs-attr"><span class="hljs-attr">id</span></span>: <span class="hljs-number"><span class="hljs-number">3</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">"bigfan"</span></span>,
+      <span class="hljs-attr"><span class="hljs-attr">profileImage</span></span>:
+        <span class="hljs-string"><span class="hljs-string">"http://next-curriculum-instagram.s3.amazonaws.com/bigfan-9AE7468E-4C35-41D1-AA68-31939891B5E1.png"</span></span>
+    }
+  ]);
+
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Home Page</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">ul</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+        {users.map(user =&gt; (
+          </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">li</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+            {user.id}: {user.username}
+          </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">li</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+        ))}
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">ul</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">div</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  );
+}</code></pre>
+<br>
+
+<h4 id="whats-happening-in-the-return-statement">What's happening in the <code>return()</code> statement?</h4>
+<p><code>users</code> is an array. Using <code>.map</code>, we loop through it, and <strong>transform</strong> each element (an object) into a <code>&lt;li&gt;</code> element.</p>
+<p>Inspect the elements on your browser to see the result.</p>
+<p><em>Note that <code>return</code> keyword was omitted from the arrow function because we did not use curly braces <code>{}</code>.</em></p>
+<br>
+
+<h4 id="what-is-happening-with-the-usestate">What is happening with the <code>useState</code>?</h4>
+<p>You should be familiar with how <code>useState</code> works at this point, but just as a recap. We are initializing the users state by passing in an <code>array</code> of objects that contain data about the user. Since we are passing in this array the users variable contain these objects with data about the user. If we want to add or remove users from the array we can use the <code>setUsers</code> function to reassign the users variable. But remember, NEVER MUTATE THE STATE DIRECTLY! Make sure you are making a copy of the array before reassigning it.</p>
+<h3 id="challenge">Challenge</h3>
+<ol>
+<li><p>Make sure you completely understand the piece of code above. If you don't, discuss with your friends and mentors.</p>
+</li>
+<li><p>Tweak <code>return()</code> to make it also display the <code>profileImage</code> for each user. The url for each user's profile image is stored in the "users" state.</p>
+</li>
+<li><p>Style your Home Page!</p>
+</li>
+</ol>
+<p><strong>Note: If you wish to add bootstrap 4, <a target="_blank" href="https://reactstrap.github.io/">follow this instruction</a>.</strong></p>
+<p>Some other UI frameworks you might want to look into:<br><a target="_blank" href="https://github.com/ant-design/ant-design">Ant Design</a><br><a target="_blank" href="https://github.com/Semantic-Org/Semantic-UI-React">Semantic UI</a><br><a target="_blank" href="https://github.com/mui-org/material-ui">Material UI</a></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

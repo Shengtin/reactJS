@@ -1,0 +1,38 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Setup: Windows</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p><em>Skip to the next lesson if you are on Mac or Linux</em></p>
+<hr>
+<h3 id="note-if-your-user-account-has-a-space-in-the-name-ie-john-smith-we-strongly-advise-you-to-create-a-new-user-account-without-spaces-in-the-name-eg-john-or-johnsmith-some-of-the-software-you-will-be-using-throughout-this-course-has-known-issues-with-with-user-accounts-that-have-a-space-in-the-name-unfortunately-this-is-out-of-our-hands-and-there-is-currently-no-solution-at-this-time">Note: If your user account has a space in the name, ie 'John Smith', we strongly advise you to create a new user account without spaces in the name. eg 'John' or 'JohnSmith'. Some of the software you will be using throughout this course has known issues with with user accounts that have a space in the name. Unfortunately this is out of our hands and there is currently no solution at this time.</h3>
+<hr>
+<h4 id="step-1-install-scoop-using-powershell">Step 1: Install Scoop using PowerShell</h4>
+<p>For Windows, we will use PowerShell to execute all the commands.</p>
+<p><em>PowerShell comes pre-installed in WIndows 7 and above, if you can't find it, <a target="_blank" href="https://docs.microsoft.com/en-us/powershell/scripting/install/installing-windows-powershell?view=powershell-6">refer to this doc</a></em></p>
+<p>Open up your PowerShell and execute the following command to install <strong>Scoop</strong>.</p>
+<pre><code class="hljs coffeescript">iex (<span class="hljs-keyword"><span class="hljs-keyword">new</span></span>-object net.webclient).downloadstring(<span class="hljs-string"><span class="hljs-string">'https://get.scoop.sh'</span></span>)</code></pre><p><a target="_blank" href="https://scoop.sh/">Scoop</a> is a Command Line Installer. It allows us to install other programs through PowerShell commands.</p>
+<hr>
+<h4 id="step-2-install-nodejs-using-scoop">Step 2: Install NodeJS using Scoop</h4>
+<p>Once the installation is complete, restart your PowerShell, then execute the following line:</p>
+<pre><code class="hljs sql">scoop <span class="hljs-keyword"><span class="hljs-keyword">install</span></span> nodejs</code></pre><p>The above command will install NodeJS properly into your computer using Scoop</p>
+<hr>
+<h4 id="step-3-restart-powershell-and-check">Step 3: Restart PowerShell and Check</h4>
+<p>Close and Reopen PowerShell, then use the following commands to make sure you have installed everything successfully:</p>
+<pre><code class="hljs">node -v</code></pre><p>It should tell you the version of NodeJS you have installed, as long as it is 8.10.0 and above, then you are good!</p>
+<p>Then run this:</p>
+<pre><code class="hljs coffeescript"><span class="hljs-built_in"><span class="hljs-built_in">npm</span></span> -v</code></pre><p>Node Package Manager comes with NodeJS. Make sure it is at least version 5.2 and above.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

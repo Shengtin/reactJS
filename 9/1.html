@@ -1,0 +1,105 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Router</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p><img src="https://miro.medium.com/max/1074/1*TKvlTeNqtkp1s-eVB5Hrvg@2x.png" alt="react-router-logo"></p>
+<p>Congratulations for going this far! You are now going to learn <strong>Client-side Routing</strong>.</p>
+<p>For traditional websites, when you click on a link, a HTTP request is made, the server returns the entire HTML, CSS and JS asset for the browser to display, therefore you see a new page loaded, with a new URL on the URL bar.</p>
+<p>SPA, however, does not need the server to return the whole page to get loaded. It only receives JSON data and renders them. If another request is made, the page gets updated with new JSON data.</p>
+<p>It can be a problem if users only navigate through everything in a single page, where the URL never ever changes.</p>
+<p>Therefore, we use React Router for frontend routing. When user navigates between pages, React Router updates the URL bars accordingly even though the page never reloads.</p>
+<h3 id="using-react-router">Using React Router</h3>
+<p>First, install React Router using npm.</p>
+<pre><code class="hljs coffeescript"><span class="hljs-built_in"><span class="hljs-built_in">npm</span></span> i -S react-router-dom</code></pre><p>In order to use it, we simply need to wrap the entire app with <code>&lt;BrowserRouter&gt;</code>.</p>
+<p>Head over to <code>index.js</code>, import <code>BrowserRouter</code>, and wrap it around <code>&lt;App /&gt;</code>.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { BrowserRouter } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react-router-dom'</span></span></code></pre>
+<pre><code class="language-jsx hljs javascript">ReactDOM.render(
+  <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">BrowserRouter</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">App</span></span></span></span><span class="xml"><span class="hljs-tag"> /&gt;</span></span></span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">BrowserRouter</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>,
+  <span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'root'</span></span>)
+)</code></pre>
+<h3 id="basic-routing">Basic Routing</h3>
+<p>Create <code>src/pages/UserProfilePage.js</code>. We want to set up the routing such that we can navigate between these 2 pages:</p>
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>Component Name</th>
+<th>Route</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HomePage</td>
+<td><code>/</code></td>
+</tr>
+<tr>
+<td>UserProfilePage</td>
+<td><code>/users/:id</code></td>
+</tr>
+</tbody></table>
+<p><em>💡 Note: We are following <a target="_blank" href="https://codepen.io/urketadic/details/oZRdRN">RESTful routes convention</a>.</em></p>
+<br>
+
+<p><strong>URL Parameter</strong><br>When we define a route as <code>/users/:id</code>, any URL that starts with <code>/users/</code> will match it, ie. <code>/users/hello</code>, <code>/users/2/</code>, etc.</p>
+<p>So the <code>:id</code> parameter becomes a variable. Later on we will use <a target="_blank" href="https://reacttraining.com/react-router/web/example/url-params">React Router URL Parameter Prop</a> to access the <code>:id</code> variable.</p>
+<hr>
+<p>For now, let's make <code>UserProfilePage</code> render something basic:</p>
+<p><strong>UserProfilePage.js</strong></p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> UserProfilePage = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">User Profile Page</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  )
+}
+
+<span class="hljs-keyword"><span class="hljs-keyword">export</span></span> <span class="hljs-keyword"><span class="hljs-keyword">default</span></span> UserProfilePage</code></pre>
+<br>
+
+<p>Then, your <code>App.js</code> should look something like this:</p>
+<p><strong>App.js</strong></p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { Route, Link } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react-router-dom"</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> HomePage <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'./pages/HomePage'</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> UserProfilePage <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'./pages/UserProfilePage'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">import</span></span> <span class="hljs-string"><span class="hljs-string">'./App.css'</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">App</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    &lt;div&gt;
+      &lt;Link to="/"&gt;Home&lt;/Link&gt;
+      {/* We temporarily hardcode this to user id 1*/}
+      &lt;Link to="/users/1"&gt;My Profile&lt;/Link&gt;
+
+      &lt;Route exact path="/" component={HomePage} /&gt;
+      &lt;Route path="/users/:id" component={UserProfilePage} /&gt;
+    &lt;/div&gt;
+  )
+}
+
+export default App</code></pre>
+<p>You should be able to navigate between <strong>Home</strong> and <strong>UserProfile</strong> by clicking on the link.</p>
+<blockquote>
+<p><code>&lt;Route&gt;</code> defines what component to render at certain path.</p>
+</blockquote>
+<blockquote>
+<p><code>&lt;Link&gt;</code> is a helper component that automatically creates <code>&lt;a&gt;</code> tag for you.</p>
+</blockquote>
+<h3 id="challenge">Challenge</h3>
+<p>Your <code>HomePage</code> component might break if it is expecting props. How do you pass props to <code>HomePage</code> through <code>&lt;Route exact path="/" component={HomePage} /&gt;</code>?</p>
+<p>The answer can be found from <a target="_blank" href="https://reacttraining.com/react-router/web/guides/basic-components">React Router Documentation</a>.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

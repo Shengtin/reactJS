@@ -1,0 +1,51 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Handling Events</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Handling events with React elements is very similar to handling events on DOM elements. </p>
+<p>Without React, you do something like this to handle events such as <code>click</code>:</p>
+<pre><code class="hljs xml"><span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">button</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">id</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"btn"</span></span></span><span class="hljs-tag">&gt;</span></span>You have clicked me <span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">span</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">id</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"click-count"</span></span></span><span class="hljs-tag">&gt;</span></span>0<span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">span</span></span></span><span class="hljs-tag">&gt;</span></span> times!<span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">button</span></span></span><span class="hljs-tag">&gt;</span></span>
+
+<span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">script</span></span></span><span class="hljs-tag">&gt;</span></span><span class="javascript"><span class="javascript">
+  </span><span class="hljs-keyword"><span class="javascript"><span class="hljs-keyword">const</span></span></span><span class="javascript"> myButton = </span><span class="hljs-built_in"><span class="javascript"><span class="hljs-built_in">document</span></span></span><span class="javascript">.getElementById(</span><span class="hljs-string"><span class="javascript"><span class="hljs-string">'btn'</span></span></span><span class="javascript">)
+  </span><span class="hljs-keyword"><span class="javascript"><span class="hljs-keyword">const</span></span></span><span class="javascript"> myClickCount = </span><span class="hljs-built_in"><span class="javascript"><span class="hljs-built_in">document</span></span></span><span class="javascript">.getElementById(</span><span class="hljs-string"><span class="javascript"><span class="hljs-string">'click-count'</span></span></span><span class="javascript">)
+  </span><span class="hljs-keyword"><span class="javascript"><span class="hljs-keyword">let</span></span></span><span class="javascript"> counter = </span><span class="hljs-number"><span class="javascript"><span class="hljs-number">0</span></span></span><span class="javascript">
+
+  myButton.addEventListener(</span><span class="hljs-string"><span class="javascript"><span class="hljs-string">'click'</span></span></span><span class="javascript">, </span><span class="hljs-function"><span class="hljs-keyword"><span class="javascript"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span></span><span class="javascript"><span class="hljs-function">(</span></span><span class="hljs-params"><span class="javascript"><span class="hljs-function"><span class="hljs-params">e</span></span></span></span><span class="javascript"><span class="hljs-function">) </span></span></span><span class="javascript">{
+    e.preventDefault()
+    counter++
+    myClickCount.innerText = counter
+  })
+</span></span><span class="hljs-tag"><span class="hljs-tag">&lt;/</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">script</span></span></span><span class="hljs-tag">&gt;</span></span></code></pre><hr>
+<p>To do the same thing as above in React, we can create a <em>Clicker</em> component with the following code:</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> Clicker = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [count, setCount] = useState(<span class="hljs-number"><span class="hljs-number">0</span></span>)
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleClick = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    setCount(count + <span class="hljs-number"><span class="hljs-number">1</span></span>)
+  }
+
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onClick</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{handleClick}</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">You have clicked {count} times!</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  )
+}</code></pre><p>Here are a few notes:</p>
+<ol>
+<li>This <code>Clicker</code> component has a state called <code>count</code>.</li>
+<li>Each time the button is clicked, the <code>count</code> state is added by 1, and re-trigger the rendering of the button.</li>
+<li><code>onClick</code> is just one of the many events we can put on any React elements, you can <a target="_blank" href="https://reactjs.org/docs/events.html">check them out here</a></li>
+</ol>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

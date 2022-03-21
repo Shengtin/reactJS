@@ -1,0 +1,34 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>My Profile Page</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>With a working log-in flow, complete the last page of your React Nextagram - <code>MyProfilePage</code>.</p>
+<p>Start off by creating a new component <code>&lt;MyProfilePage /&gt;</code>, then create a routing for it:</p>
+<pre><code class="hljs xml"><span class="hljs-tag"><span class="hljs-tag">&lt;</span><span class="hljs-name"><span class="hljs-tag"><span class="hljs-name">Route</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">exact</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">path</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">"/profile"</span></span></span><span class="hljs-tag"> </span><span class="hljs-attr"><span class="hljs-tag"><span class="hljs-attr">component</span></span></span><span class="hljs-tag">=</span><span class="hljs-string"><span class="hljs-tag"><span class="hljs-string">{MyProfilePage}</span></span></span><span class="hljs-tag"> /&gt;</span></span></code></pre><hr>
+<p>When this page is loaded, we will call this endpoint:</p>
+<pre><code class="hljs javascript">https:<span class="hljs-comment"><span class="hljs-comment">//insta.nextacademy.com/api/v1/images/me</span></span></code></pre><p>to retrieve all the images for current logged in user.</p>
+<p>However this API request requires a authorization header with JWT token.</p>
+<h3 id="axios-request-with-header-object">Axios request with header object</h3>
+<p>Refer to <code>Axios</code>'s <a target="_blank" href="https://github.com/axios/axios#request-config">available config options</a> for making request, attach:</p>
+<pre><code class="language-js hljs javascript">{
+  <span class="hljs-attr"><span class="hljs-attr">Authorization</span></span>: <span class="hljs-string"><span class="hljs-string">`Bearer </span><span class="hljs-subst"><span class="hljs-string"><span class="hljs-subst">${jwt}</span></span></span><span class="hljs-string">`</span></span>
+}</code></pre>
+<p>to your request header.</p>
+<p>Of course, you will first retrieve the JWT from web storage before making the request.</p>
+<h3 id="challenge">Challenge</h3>
+<p><strong>Complete <code>MyProfilePage</code> with appropriate loading indicator and error handling.</strong> (ie. user visits the page without JWT)</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

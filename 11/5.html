@@ -1,0 +1,146 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Making It React-ive</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h2 id="form-validations-the-react-way">Form Validations the <code>React</code> way</h2>
+<p>Up until now, you haven't really explored into what makes React so great. The reason people choose React is for creating beautiful and complex UI's. We are now going to implement some React-ive features so we can truly understand the wonders of what React can do.</p>
+<h2 id="building-form-validations">Building Form Validations</h2>
+<p>We sometimes take for granted the features that modern day websites have, expecially for non-coders, they don't truly understand the amount of work that is required to build something as simple as a form validation.</p>
+<p>Thankfully since the introduction of React and by tapping in to third-party libraries, we can implement these kind of features quickly and easily.</p>
+<p>In the previous lesson, you should have built your user sign up form that will take in the username, email and password to create a new account.</p>
+<p>We implemented some very basic validation that would prevent us from clicking in the sign up button until all the fields were filled out. We will now take that a step further by integrating with our back-end through an API call as well as making use of the form validation features built in to <code>Reactstrap</code>.</p>
+<h3 id="checking-for-available-usernames">Checking for available usernames</h3>
+<p>The endpoint you will be working with has already been created for you:</p>
+<pre><code class="hljs javascript">GET https:<span class="hljs-comment"><span class="hljs-comment">//insta.nextacademy.com/api/v1/users/check_name</span></span></code></pre><p>We will be using query parameters with a <code>GET</code> request to check the validity of the username, but before we get into that there are a couple of things to consider when you are building the username validation:</p>
+<ul>
+<li>Is it necessary to check the validity of the username when it is less than 6 characters long?</li>
+<li>Should I prevent from being able to submit the form if the username is already taken?</li>
+</ul>
+<p>The first point is easier to implement while the latter may take a bit more logic to perform correctly.</p>
+<p>Let's get started at implementing the username check.</p>
+<h4 id="building-the-function">Building the Function</h4>
+<p>First thing you are going to need is a function that will handle the checking of the username, you can use the example below for reference but try to build your own to get a better understanding of how to make this logic work.</p>
+<pre><code class="language-JSX hljs">
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [delay, setDelay] = useState(<span class="hljs-literal"><span class="hljs-literal">null</span></span>);
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [usernameValid, setUsernameValid] = useState(<span class="hljs-literal"><span class="hljs-literal">true</span></span>);
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [username, setUsername] = useState(<span class="hljs-string"><span class="hljs-string">""</span></span>);
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> checkUsername = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">newUsername</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-comment"><span class="hljs-comment">// this should only trigger after you stop typing for 500ms</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">"Making API call to check username!"</span></span>);
+    axios
+      .get(
+        <span class="hljs-string"><span class="hljs-string">`https://insta.nextacademy.com/api/v1/users/check_name?username=</span><span class="hljs-subst"><span class="hljs-string"><span class="hljs-subst">${newUsername}</span></span></span><span class="hljs-string">`</span></span>
+      )
+      .then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">response</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+        <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(response.data);
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (response.data.valid) {
+          setUsernameValid(<span class="hljs-literal"><span class="hljs-literal">true</span></span>);
+        } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+          setUsernameValid(<span class="hljs-literal"><span class="hljs-literal">false</span></span>);
+        }
+      });
+  };
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleUsernameInput = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">e</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-comment"><span class="hljs-comment">// clears queue so that the old keystrokes don't trigger axios call</span></span>
+    clearTimeout(delay);
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> newUsername = e.target.value;
+    setUsername(newUsername);
+
+    <span class="hljs-comment"><span class="hljs-comment">// put each new keystroke into the queue</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> newDelay = setTimeout(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+      checkUsername(newUsername);
+    }, <span class="hljs-number"><span class="hljs-number">500</span></span>);
+
+    setDelay(newDelay);
+  };
+</code></pre>
+<p>There is a lot going on in the code above, some of it is straight forward and some may be quite confusing. We need to set a delay on making the request to the server until we have stopped typing otherwise the consequence is making multiple requests each time we press a key, the result of this is that you may have a delay on some requests coming back and this causes spotty results that sometimes may display correctly and sometimes not. We really don't want this behaviour as it is bad for the user experience.</p>
+<h3 id="building-the-form-input">Building the form input</h3>
+<p>Now we have a function that we can work with, we will go ahead and build the form input to handle all of this logic and display the correct results. By the end you should have something that looks like this.</p>
+<p><img src="https://next-courses-assets.s3.amazonaws.com/React.js_Javascript_-_Bootcamp/a43f16a2-0f93-4d4c-86c7-90dcb2c7f1b0-form-validation.gif" alt="form-validation.gif"></p>
+<p>Cool, right? I hope it is ;)</p>
+<p>Now, let's take a look at building the form input. Try to break it down and understand it bit by bit as it might be quite an eyeful at first glance.</p>
+<pre><code class="language-JS hljs"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> SignUpForm = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">//... other stuffs</span></span>
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> getInputProp = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (!username.length) {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-literal"><span class="hljs-literal">null</span></span>;
+    }
+
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (username.length &lt;= <span class="hljs-number"><span class="hljs-number">6</span></span>) {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> { <span class="hljs-attr"><span class="hljs-attr">invalid</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span> };
+    }
+
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (usernameValid) {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> { <span class="hljs-attr"><span class="hljs-attr">valid</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span> };
+    } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> { <span class="hljs-attr"><span class="hljs-attr">invalid</span></span>: <span class="hljs-literal"><span class="hljs-literal">true</span></span> };
+    }
+  };
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> getFormFeedback = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (!username.length) {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-literal"><span class="hljs-literal">null</span></span>;
+    }
+
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (username.length &lt;= <span class="hljs-number"><span class="hljs-number">6</span></span>) {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormFeedback</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">invalid</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Must be at least 6 characters</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormFeedback</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>;
+    }
+
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (usernameValid) {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormFeedback</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">valid</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Sweet! That name is available</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormFeedback</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>;
+    } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+      <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormFeedback</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">invalid</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Sorry! Username is taken</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormFeedback</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>;
+    }
+  };
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormGroup</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Label</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">for</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"username"</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Username</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Label</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Input</span></span></span></span><span class="xml"><span class="hljs-tag">
+        </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">type</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"text"</span></span></span></span><span class="xml"><span class="hljs-tag">
+        </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">value</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{username}</span></span></span></span><span class="xml"><span class="hljs-tag">
+        </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onChange</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{handleUsernameInput}</span></span></span></span><span class="xml"><span class="hljs-tag">
+        {</span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">...getInputProp</span></span></span></span><span class="xml"><span class="hljs-tag">()}
+      /&gt;</span></span></span><span class="xml">
+      {getFormFeedback()}
+      </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormText</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Enter a username between 6 and 20 characters</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormText</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormGroup</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+  );
+};
+</span></span></code></pre>
+<p>In <em>Reactstrap</em>, we put <code>valid</code> or <code>invalid</code> props into <code>&lt;Input&gt;</code> and <code>&lt;FormFeedback&gt;</code> components to get the nice green/red borders with feedback messages.</p>
+<p>(Refer to <a target="_blank" href="https://reactstrap.github.io/components/form/#Form-Validation">Form Validation Section</a>)</p>
+<h2 id="challenge">Challenge:</h2>
+<p>Now go off and use what you have just learnt to build some additional validations yourself.</p>
+<ol>
+<li><p>Implement password validation, if the password does not meet the minimum requirements of being at least 6 characters long, display to the user that the password is too short.</p>
+</li>
+<li><p>Implement email validation, you can find plenty of examples of email Regex online, you can use this to check and set your state.</p>
+</li>
+<li><p>Implement confirm password validation, if the password does not match the original password, display this to the user too.</p>
+</li>
+</ol>
+<p>Think about this, these are all things you are going to have to consider when organising your code:</p>
+<ul>
+<li>What states are you going to need?</li>
+<li>Should you seperate things into different components?</li>
+<li>Who should hold the state, the form or the parent? Should the form be a dumb or smart component?</li>
+</ul>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

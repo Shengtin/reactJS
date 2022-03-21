@@ -1,0 +1,76 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Calculator: Part 4</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h3 id="creating-the-functions">Creating the functions</h3>
+<p>The state has now been created so inevitably the next step is going to be creating the functions so the calculator will actually function as a calculator.</p>
+<p>Again, before the return statement in the <code>App</code> function, you need to place the following code. Take a moment to read and understand what each of the functions are doing. They should be quite clear. The only thing that may seem strange is the <code>eval()</code> function.</p>
+<p>Just be very careful of the <code>eval()</code> function; while it serves as a great way to build a calculator it can be a very dangerous thing. Eval will read the string and execute what is sees inside as code. So if the contents are code, it will execute the code if it can.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> calculate = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">try</span></span> {
+    setResult((<span class="hljs-built_in"><span class="hljs-built_in">eval</span></span>(result) || <span class="hljs-string"><span class="hljs-string">""</span></span>) + <span class="hljs-string"><span class="hljs-string">""</span></span>);
+  } <span class="hljs-keyword"><span class="hljs-keyword">catch</span></span> (e) {
+    setResult(<span class="hljs-string"><span class="hljs-string">"error"</span></span>);
+  }
+};
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> reset = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  setResult(<span class="hljs-string"><span class="hljs-string">""</span></span>);
+};
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> backspace = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  setResult(result.slice(<span class="hljs-number"><span class="hljs-number">0</span></span>, <span class="hljs-number"><span class="hljs-number">-1</span></span>));
+};
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> performCalculation = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">key</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (key === <span class="hljs-string"><span class="hljs-string">"="</span></span>) {
+    calculate();
+  } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (key === <span class="hljs-string"><span class="hljs-string">"AC"</span></span>) {
+    reset();
+  } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (key === <span class="hljs-string"><span class="hljs-string">"C"</span></span>) {
+    backspace();
+  } <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> {
+    setResult(result + key);
+  }
+};</code></pre>
+<h3 id="passing-the-function-as-props">Passing the function as props</h3>
+<p>The most important function is going to be the <code>performCalculation</code> function, as we are going to need to pass this down as props to the child components in order to get back the value of the keypad key that is being clicked.</p>
+<p>In order to do this, we need to pass the <code>performCalculation</code> function down to the <code>Keypad</code> component.</p>
+<pre><code class="language-jsx hljs javascript">&lt;KeyPad performCalculation={performCalculation} /&gt;</code></pre>
+<p>Take note how we are simply passing a reference to the performCalculation function but we are not invoking the function with the parenthesis. This is important to be aware of or you will find yourself prematurely calling the function.</p>
+<p>Now inside of your <code>Keypad.js</code> you need to extract the function from the props and then pass the function down another level to the <code>Key</code> component.</p>
+<p>You can destructure the props coming into the function and just extract what is needed.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> KeyPad = <span class="hljs-function"><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">{performCalculation}</span></span></span><span class="hljs-function">) =&gt;</span></span> {
+ <span class="hljs-comment"><span class="hljs-comment">// Your code will be here...</span></span>
+}</code></pre>
+<hr>
+<h4 id="challenge"><strong>Challenge</strong>:</h4>
+<p>Go ahead and try to pass the performCalculation down to the keys that are being mapped and inside of the <code>Key</code> component, then destructure the props to get the function out to use within the component.</p>
+<hr>
+<p>Once you have completed the mini challenge above, you can then add the event listener to the button in the <code>Key</code> component.</p>
+<pre><code class="language-jsx hljs javascript">&lt;button
+  onClick={() =&gt; performCalculation(data.value)}
+&gt;
+<span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span></code></pre>
+<p>This will pass the key value coming from the data props directly into the function. Then, when the function is invoked by clicking on the button, the value will be passed up to the function being called in the <code>App</code> component.</p>
+<p>Confused? The structure of React can be a little tricky at the start, but as with anything in life, practice makes perfect. It will make more sense when you start to see how it works.</p>
+<p>You have enough to make the calculator function, the final step will be the challenge below.</p>
+<hr>
+<h4 id="challenge-1"><strong>Challenge</strong>:</h4>
+<p>Complete the calculator. You now have the functions and they should be working correctly. You will need to handle some props between the <code>App</code> and the <code>CalculatorDisplay</code> components in order to get the output to display. Look at the example with the <code>App</code>, <code>Keypad</code> and <code>Keys</code>. The flow should be fairly similar.</p>
+<p>Good luck, hopefully you have started to get an idea as to what React is about. We will now start to dive deeper into it and get into some more advanced use of React and introduce to you some new hooks as well.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

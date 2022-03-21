@@ -1,0 +1,67 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>JWT and Web Storage</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>When a user is logged in, we want to store a piece of information inside the computer of that user (commonly known as cookie).</p>
+<p>For our Nextagram, upon making a success API call to the <em>Login Endpoint</em>,</p>
+<pre><code class="hljs javascript">POST https:<span class="hljs-comment"><span class="hljs-comment">//insta.nextacademy.com/api/v1/login</span></span></code></pre><p>it will return a JSON that looks like this:</p>
+<pre><code class="hljs json">{
+  <span class="hljs-attr"><span class="hljs-attr">"auth_token"</span></span>: <span class="hljs-string"><span class="hljs-string">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NTkwMzgwOTQsImlhdCI6MTU1ODk1MTY5NCwic3ViIjoyODZ9.HZSL_Y0zZPqmVwte2OHR20jhYwbWSx4k2rs3MhzHZO4"</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">"message"</span></span>: <span class="hljs-string"><span class="hljs-string">"Successfully signed in."</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">"status"</span></span>: <span class="hljs-string"><span class="hljs-string">"success"</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">"user"</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">"id"</span></span>: <span class="hljs-number"><span class="hljs-number">286</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">"profile_picture"</span></span>: <span class="hljs-string"><span class="hljs-string">"http://next-curriculum-instagram.s3.amazonaws.com/profile-placeholder.jpg"</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">"username"</span></span>: <span class="hljs-string"><span class="hljs-string">"Test User"</span></span>
+  }
+}</code></pre><h4 id="jwt-auth-token">JWT Auth Token</h4>
+<p>The <code>auth_token</code> is known as <a target="_blank" href="https://jwt.io/introduction/">JWT</a>. Even though it looks like a random string, it contains information regarding the user that is logged in.</p>
+<p>In our Nextagram server, when the JWT is decrypted, it contains <code>User ID</code>. This way, we know who is the person making the API call.</p>
+<h2 id="storing-jwt-in-web-storage">Storing JWT in Web Storage</h2>
+<p>Previously, when you make API calls to <code>/images</code> or <code>/users</code>, the Python server simply returns you the data without question, it doesn't care who you are, or whether you are authorized to do so.</p>
+<p>However, if your React app makes request to <code>/images/me</code>, the server will not allow it unless you attach a <a target="_blank" href="https://jwt.io/introduction/">JWT</a> token to that request. The JWT token is then decrypted by the server to know which user does it belong to, and therefore returning you the corresponding images.</p>
+<p>In order to obtain JWT, users need to login through your React app - making POST request to <code>/login</code> will return JWT if the email-password combination is correct.</p>
+<hr>
+<h3 id="storing-jwt">Storing JWT</h3>
+<p><strong>Web Storage</strong> is where we should store JWT. It is a secured storage located locally at a user's computer.</p>
+<p>There are 2 types of web storage:</p>
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>Storage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>localStorage</td>
+<td>stores data with no expiration date</td>
+</tr>
+<tr>
+<td>sessionStorage</td>
+<td>stores data for one session (data is lost when the browser tab is closed)</td>
+</tr>
+</tbody></table>
+<p>Basically, you can say that a user is logged in when JWT exists in web storage. If you choose to store JWT in <em>sessionStorage</em>, the user will be logged out the moment they close the tab. So it seems more appropriate to store JWT in <em>localStorage</em> in this situation.</p>
+<hr>
+<h3 id="accessing-the-storage">Accessing the Storage</h3>
+<p>Using Javascript, it's very simple to write data into the storage:</p>
+<pre><code class="language-js hljs javascript">localStorage.setItem(<span class="hljs-string"><span class="hljs-string">'name'</span></span>, <span class="hljs-string"><span class="hljs-string">'Josh'</span></span>)
+sessionStorage.setItem(<span class="hljs-string"><span class="hljs-string">'clickCount'</span></span>, <span class="hljs-number"><span class="hljs-number">10</span></span>)</code></pre>
+<p>or read from them:</p>
+<pre><code class="language-js hljs javascript">localStorage.getItem(<span class="hljs-string"><span class="hljs-string">'name'</span></span>) <span class="hljs-comment"><span class="hljs-comment">// "Josh"</span></span>
+sessionStorage.getItem(<span class="hljs-string"><span class="hljs-string">'clickCount'</span></span>) <span class="hljs-comment"><span class="hljs-comment">// 10, but this data is deleted when user closes the browser tab</span></span></code></pre>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

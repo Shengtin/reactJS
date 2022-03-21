@@ -1,0 +1,149 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Forms</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>We are going to learn how to handle forms with React.<br>There are 2 types of form components that we can build - a controlled form or an uncontrolled form.</p>
+<h3 id="uncontrolled-form-component">Uncontrolled Form Component</h3>
+<p>In vanilla JS, if we have a text input:</p>
+<pre><code class="language-js hljs javascript">&lt;input type=<span class="hljs-string"><span class="hljs-string">"text"</span></span> id=<span class="hljs-string"><span class="hljs-string">"name"</span></span> /&gt;</code></pre>
+<p>We can capture the input value through</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'name'</span></span>).value</code></pre>
+<p>If there is a form that submits the name value, we probably write:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> nameForm = <span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'form'</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> nameValue = <span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.getElementById(<span class="hljs-string"><span class="hljs-string">'name'</span></span>).value
+
+nameForm.onsubmit = <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function">(</span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">e</span></span></span><span class="hljs-function">) </span></span>{
+  alert(<span class="hljs-string"><span class="hljs-string">'A name was submitted: '</span></span> + nameValue)
+}</code></pre>
+<br>
+
+<p><strong>Translating the above to React gives us this:</strong></p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, { useRef } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>;
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> NameForm = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> inputEl = useRef(<span class="hljs-literal"><span class="hljs-literal">null</span></span>);
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleSubmit = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">event</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    event.preventDefault();
+    alert(<span class="hljs-string"><span class="hljs-string">"A name was submitted: "</span></span> + inputEl.current.value);
+  };
+
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    &lt;form onSubmit={e =&gt; handleSubmit(e)}&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input type="text" ref={inputEl} /&gt;
+      &lt;/label&gt;
+      &lt;input type="submit" value="Submit" /&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+<h4 id="react-virtual-dom">React Virtual DOM</h4>
+<p>In React, there is <a target="_blank" href="https://hackernoon.com/virtual-dom-in-reactjs-43a3fdb1d130">virtual DOM and real DOM</a>. Whenever there is a state change or change in the props, React only updates the virtual DOM. The virtual DOM will then compare its differences with real DOM and only update the differences, making the whole process lightning fast.</p>
+<p>Which means if we use <code>document.getElementById</code> in React, we are directly accessing the real DOM and not utilising React's virtual DOM.</p>
+<h4 id="react-ref">React Ref</h4>
+<p>However, when there <em>really</em> is a need to directly access a DOM, we use <a target="_blank" href="https://reactjs.org/docs/refs-and-the-dom.html">React Ref</a>, like in the example above.</p>
+<p>We set <code>inputEl</code> to point at <code>&lt;input&gt;</code> DOM element, therefore we can access its value through <code>inputEl.current.value</code>.</p>
+<p>In almost all cases, refs can be avoided altogether. <strong>It is even a design principle for Netflix to use no refs, ever.</strong></p>
+<p><strong>In conclusion, the <code>NameForm</code> above is an example of uncontrolled component because we are not managing the <code>name</code> value through react state. The source of truth lies in the DOM **instead of state</strong>.**</p>
+<br>
+
+<hr>
+<h3 id="controlled-component">Controlled Component</h3>
+<p>In a controlled form component, we make sure everything goes through <strong>state</strong>.</p>
+<p>The <code>NameForm</code> below is written like so:</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React, { useState } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">"react"</span></span>;
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> NameForm = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [nameInput, setNameInput] = useState(<span class="hljs-string"><span class="hljs-string">""</span></span>);
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> handleSubmit = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">event</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    event.preventDefault();
+    alert(<span class="hljs-string"><span class="hljs-string">"A name was submitted: "</span></span> + nameInput);
+  };
+
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    &lt;form onSubmit={e =&gt; handleSubmit(e)}&gt;
+      &lt;label&gt;
+        Name:
+        &lt;input
+          type="text"
+          onChange={e =&gt; setNameInput(e.target.value)}
+          value={nameInput}
+        /&gt;
+      &lt;/label&gt;
+      &lt;input type="submit" value="Submit" /&gt;
+    &lt;/form&gt;
+  );
+};
+</code></pre>
+<h4 id="input-onchange"><code>&lt;input&gt;</code> onChange</h4>
+<p>Every keystroke in <code>&lt;input&gt;</code> will trigger <code>onChange</code>, which then calls <code>setNameInput</code> to update the <code>nameInput</code> state.</p>
+<p>In other word, every keystroke triggers a re-rendering. Sounds heavy? Actually the whole process is incredibly fast thanks to virtual DOM!</p>
+<h4 id="nameinput-state"><code>nameInput</code> state</h4>
+<p>With controlled component, we can access <code>nameInput</code> anywhere in the component.</p>
+<br>
+
+<hr>
+<h4 id="controlled-vs-uncontrolled">Controlled vs Uncontrolled</h4>
+<p><a target="_blank" href="https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/">This article gives a detailed explanation on the difference.</a></p>
+<table class="table table-bordered table-sm">
+<thead>
+<tr>
+<th>Feature</th>
+<th>Uncontrolled</th>
+<th>Controlled</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>one-time value retrieval (e.g. on submit)</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>validating on submit</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>instant field validation</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>conditionally disabling submit button</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>enforcing input format</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>several inputs for one piece of data</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>dynamic inputs</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody></table>
+<p>In a nutshell, controlled components provide more controls...<br><img src="data:image/jpeg;base64,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" alt="youdunsay"></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

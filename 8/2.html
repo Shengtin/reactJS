@@ -1,0 +1,36 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span> Component</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Our home page is only half done, we fetch users when the app is loaded, now we need to fetch <strong>images for each user</strong>.</p>
+<p>We are going to harness the power of reusability React component.</p>
+<p>We will build a <code>&lt;UserImages&gt;</code> component that will be used by each user to display the corresponding images. However, how can we make <code>&lt;UserImages&gt;</code> fetch different images according to users?</p>
+<p>According to <a target="_blank" href="https://documenter.getpostman.com/view/2792518/RzZ6HLBy">Nextagram API docs</a>, the endpoint to retrieves images for, say, <em>Blake</em>, is <code>/api/v1/images?userId=3</code>, because Blake's user ID is 3.</p>
+<p>Since we are able to get the IDs for all users, we simply need to make <code>&lt;UserImages&gt;</code> receive the user ID as props, and fetch images accordingly.</p>
+<hr>
+<h3 id="challenge">Challenge</h3>
+<p><strong>1. Create a <code>UserImages</code> component:</strong></p>
+<ul>
+<li>Once this component is loaded, you want to make GET requests to retrieve all images for a particular user</li>
+<li>The API endpoint for this is <code>/api/v1/images?userId=&lt;int&gt;</code></li>
+</ul>
+<p><strong>2. Put this component in <code>HomePage</code> component</strong></p>
+<ul>
+<li>Pass down <code>userId</code> as prop into <code>UserImages</code></li>
+</ul>
+<p><strong>3. Display loading indicator while fetching images for each user</strong></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

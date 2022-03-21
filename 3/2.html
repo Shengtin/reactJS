@@ -1,0 +1,60 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Brief History of React</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Programming languages are rapidly evolving and always changing. This is just the nature of the Software Development world.</p>
+<p>React is no different. Things have changed over the years as the React development team continues to improve the framework and features to make it easier to use, faster and more efficient.</p>
+<p>React was designed to cut down development time for frontend applications.</p>
+<h3 id="what-was-it-like-at-the-start">What was it like at the start?</h3>
+<p>React was first introduced back in 2011 and things were a lot different back then.</p>
+<p>When React was first released, JavaScript was still in ES5 so there were no Arrow Functions, Spread Operators or Destructuring, amongst a host of other changes.</p>
+<p>In the beginning React components were cumbersome to build and less readable than they are today.</p>
+<p>Below is an example of how React components were created once upon a time not so long ago.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">var</span></span> createReactClass = <span class="hljs-built_in"><span class="hljs-built_in">require</span></span>(<span class="hljs-string"><span class="hljs-string">'create-react-class'</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword">var</span></span> App = createReactClass({
+  <span class="hljs-attr"><span class="hljs-attr">render</span></span>: <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Hello World</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  }
+})</code></pre>
+<p>This would be a very simple <code>Hello World</code> app before the introduction of ES6.</p>
+<pre><code class="language-js hljs javascript">getInitialState: <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> {<span class="hljs-attr"><span class="hljs-attr">count</span></span>: <span class="hljs-number"><span class="hljs-number">0</span></span>}
+}</code></pre>
+<p>As you can see, everything is treated as JavaScript objects and the component is being structured around the keys and values provided.</p>
+<h3 id="in-comes-es6">In comes ES6</h3>
+<p>With the introduction of ECMAScript 2015 (ES6) in 2015, it brought with it a whole host of changes. We are not going to go through them but we will see the changes it allowed for React.</p>
+<p>Let's see how the same component above would have been written with the introduction of ES6.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> React <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react'</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">App</span></span></span><span class="hljs-class"> </span><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">extends</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">React</span></span></span><span class="hljs-class">.</span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">Component</span></span></span><span class="hljs-class"> </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">constructor</span></span>(props){
+    <span class="hljs-keyword"><span class="hljs-keyword">super</span></span>(props);
+    <span class="hljs-keyword"><span class="hljs-keyword">this</span></span>.state = {
+      <span class="hljs-attr"><span class="hljs-attr">count</span></span>: <span class="hljs-number"><span class="hljs-number">0</span></span>
+    }
+  }
+
+  render(){
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">Hello World! Count: {this.state.count}</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">h1</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span>
+  }
+}</code></pre>
+<p>As you can see it completely changes the look and feel of React. It's cleaner, much easier to read and development time had improved dramatically.</p>
+<p>However, functional components at this time could not contain state which meant they were purely for display purposes and would rely on props being passed from the parent to function.</p>
+<h3 id="whats-next">What's next?</h3>
+<p>As you go through this course you will see that React has once more advanced quite dramatically around mid 2019 with the introduction of Hooks, and thankfully, with these changes, came huge benefits that make React much simpler to work with and make it much more beginner friendly.</p>
+<p>You are lucky to be learning at a time when things became much simpler 😉. You can thank us later!</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

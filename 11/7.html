@@ -1,0 +1,113 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Handle Log In and Log Out</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Log in by making a POST request to login endpoint with <code>username</code> and <code>password</code> attached in the body:</p>
+<pre><code class="language-js hljs javascript">axios({
+  <span class="hljs-attr"><span class="hljs-attr">method</span></span>: <span class="hljs-string"><span class="hljs-string">'post'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">url</span></span>: <span class="hljs-string"><span class="hljs-string">'https://insta.nextacademy.com/api/v1/login'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">data</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">username</span></span>: <span class="hljs-string"><span class="hljs-string">''</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">password</span></span>: <span class="hljs-string"><span class="hljs-string">''</span></span>
+  }
+})
+.then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">result</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(result)
+  <span class="hljs-comment"><span class="hljs-comment">/**
+   * Example response:
+  {
+    "auth_token": "&lt;auth token string&gt;",
+    "message": "Successfully signed in.",
+    "status": "success",
+    "user": {
+      "id": 3,
+      "profile_picture": "&lt;profile-pic-url&gt;",
+      "username": "blake"
+    }
+  }
+  */</span></span>
+})</code></pre>
+<hr>
+<p>Upon a success login call, you should do the followings:</p>
+<h4 id="1-store-jwt-in-localstorage">1. Store JWT in localStorage</h4>
+<p>The JWT needs to be stored persistently so that the user can remained logged in even if they refresh or quit browser.</p>
+<p>Based on the response that looks like this:</p>
+<pre><code class="language-js hljs javascript">  <span class="hljs-string"><span class="hljs-string">"data"</span></span>: {
+    <span class="hljs-string"><span class="hljs-string">"auth_token"</span></span>: <span class="hljs-string"><span class="hljs-string">"&lt;auth token string&gt;"</span></span>,
+    <span class="hljs-string"><span class="hljs-string">"message"</span></span>: <span class="hljs-string"><span class="hljs-string">"Successfully signed in."</span></span>,
+    <span class="hljs-string"><span class="hljs-string">"status"</span></span>: <span class="hljs-string"><span class="hljs-string">"success"</span></span>,
+    <span class="hljs-string"><span class="hljs-string">"user"</span></span>: {
+      <span class="hljs-string"><span class="hljs-string">"id"</span></span>: <span class="hljs-number"><span class="hljs-number">3</span></span>,
+      <span class="hljs-string"><span class="hljs-string">"profile_picture"</span></span>: <span class="hljs-string"><span class="hljs-string">"&lt;profile-pic-url&gt;"</span></span>,
+      <span class="hljs-string"><span class="hljs-string">"username"</span></span>: <span class="hljs-string"><span class="hljs-string">"blake"</span></span>
+    }
+  }</code></pre>
+<p>We can store the information we need in <code>localStorage</code> like this:</p>
+<pre><code class="language-js hljs javascript">.then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">result</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  localStorage.setItem(<span class="hljs-string"><span class="hljs-string">'jwt'</span></span>, result.data.auth_token)
+})</code></pre>
+<blockquote>
+<p>💡 Tip #1: You can also store the user info (id, profile pic &amp; username) in localStorage if you need to display the info somewhere, for example, username on the Navbar</p>
+</blockquote>
+<blockquote>
+<p>💡 Tip #2: User is remained logged if JWT is stored in localStorage, so to log out, the JWT needs to be removed from localStorage</p>
+</blockquote>
+<br>
+
+<h4 id="2-loggedin-state-in-appjs">2. <code>loggedIn</code> state in <code>App.js</code></h4>
+<p>In the website, you probably have some conditional rendering based on whether the user is logged in or not.</p>
+<p>For example, in the Navbar, you want to show either "Log In" or "Log Out" button based on whether the user is signed in.</p>
+<p>In that situation, when "Log Out" is clicked, the Navbar need to be re-rendered. And we know a component will only re-render <strong>if there is state change</strong>.</p>
+<p>By just removing the JWT from localStorage won't trigger the re-render, so we need a <code>loggedIn</code> state to handle that.</p>
+<p><strong>Why App.js?</strong></p>
+<p><code>loggedIn</code> state and <code>setLoggedIn</code> function can potentially be needed in many other components, so it makes sense to have it live in the top-level component:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> App = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">/** 
+   * The default boolean for loggedIn state would be
+   * determined by whether JWT exists in localStorage
+  */</span></span>
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [loggedIn, setLoggedIn] = useState(
+    localStorage.getItem(<span class="hljs-string"><span class="hljs-string">'jwt'</span></span>) !== <span class="hljs-literal"><span class="hljs-literal">null</span></span>
+  )
+}
+</code></pre>
+<br>
+
+
+<h4 id="3-redirect-to-the-right-page">3. Redirect to the right page</h4>
+<p>If you need to redirect user to certain page after loggging in, such as user profile page, you can use <code>useHistory</code> hook from <code>react-router-dom</code>:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">import</span></span> { useHistory } <span class="hljs-keyword"><span class="hljs-keyword">from</span></span> <span class="hljs-string"><span class="hljs-string">'react-router-dom'</span></span>
+
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> YourComponent = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">let</span></span> history = useHistory()
+
+  <span class="hljs-comment"><span class="hljs-comment">//... somwhere in your code, you can:</span></span>
+  history.push(<span class="hljs-string"><span class="hljs-string">'/page-you-want-to-redirect-to'</span></span>)
+}</code></pre>
+<hr>
+<h3 id="challenge">Challenge</h3>
+<p><strong>Complete the log-in flow of your app.</strong></p>
+<p><strong>1. Log In</strong></p>
+<p>When user submits login form, send username/password to POST <code>/login</code>, store the returned JWT in <code>localStorage</code> and set <code>loggedIn</code> state to <code>true</code>. </p>
+<p>Upon successful or unsuccessful login, display message to notify the user.</p>
+<p><strong>2. After logging in</strong></p>
+<p>Tweak your UI accordingly. A logged in user should not see 'Login' option on Navbar.</p>
+<p>You may design some kind of indicator to help users understand that they are signed in. For example, you can display profileImage and username on the Navbar if a user is logged in.</p>
+<p><strong>3. Log Out</strong></p>
+<p>Logged-in users should have the option to log out. You should use <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem">localStorage.removeItem()</a>.</p>
+<p>Upon logging out, you should trigger a re-render to update the UI so that user knows he/she is logged out.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

@@ -1,0 +1,48 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Folder Structure</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>By now, you already have at 4 different components in separate JS files: <code>App.js</code>, <code>HomePage.js</code>, <code>Loader.js</code> <em>(or whatever you named it)</em> and <code>UserImages.js</code>.</p>
+<p>In next challenge, you will be introduced to <strong>React Router</strong> where you will have even more components that represent <strong>Pages</strong>.</p>
+<p>As you can see, it's best we start organizing these files into their own folders.</p>
+<h3 id="srcpages"><code>src/pages</code></h3>
+<p>This folder is meant for each page of your app. React Router will redirect users from one page to another, and each page will then subsequently load more components.</p>
+<p>Create a folder called <code>pages</code>, and move your <code>HomePage.js</code> into this folder.</p>
+<hr>
+<h3 id="srccontainers"><code>src/containers</code></h3>
+<p>We store <strong>Smart Containers</strong> here. They are the non-pages components that contain logic (states, api calls, etc).</p>
+<p>Move your <code>UserImages.js</code> here.</p>
+<hr>
+<h3 id="srccomponents"><code>src/components</code></h3>
+<p>We store <strong>Dumb Components</strong> here - those presentational components that can be reused for UI purpose (buttons, navbar).</p>
+<p>Move your <code>Loader.js</code> here.</p>
+<hr>
+<p>Your folder structure should look like this now:</p>
+<pre><code class="hljs">src
+├── components
+|   └── Loader.js
+├── containers
+|   └── UserImages.js
+├── pages
+|   └── HomePage.js
+├── App.js
+...
+...</code></pre><p><strong>Note</strong>: Don't forget to update the <em>import</em> of these moved components in <code>App.js</code>!</p>
+<hr>
+<h3 id="ultimate-challenge">Ultimate Challenge</h3>
+<p>Just kidding! You're done here if you have already followed the instructions above.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

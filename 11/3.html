@@ -1,0 +1,71 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Sign Up API</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Now that your forms are in controlled, let's consume the Sign Up API endpoint:</p>
+<pre><code class="hljs coffeescript">POST https:<span class="hljs-regexp"><span class="hljs-regexp">//i</span></span>nsta.nextacademy.com<span class="hljs-regexp"><span class="hljs-regexp">/api/v1/users/</span></span></code></pre><p>According to our <a target="_blank" href="https://documenter.getpostman.com/view/2792518/RzZ6HLBy">API documentation</a>, to make this POST request, we will attach the request with <code>username</code>, <code>email</code> and <code>password</code>.</p>
+<p>To translate that into axios code:</p>
+<pre><code class="language-js hljs javascript">axios({
+  <span class="hljs-attr"><span class="hljs-attr">method</span></span>: <span class="hljs-string"><span class="hljs-string">'POST'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">url</span></span>: <span class="hljs-string"><span class="hljs-string">'https://insta.nextacademy.com/api/v1/users/'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">data</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">username</span></span>: ...,
+    <span class="hljs-attr"><span class="hljs-attr">email</span></span>: ...,
+    <span class="hljs-attr"><span class="hljs-attr">password</span></span>: ...
+  }
+})
+.then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">response</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(response)
+})
+.catch(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">error</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.error(error.response) <span class="hljs-comment"><span class="hljs-comment">// so that we know what went wrong if the request failed</span></span>
+})</code></pre>
+<h3 id="handling-response">Handling Response</h3>
+<p>Now, after making the request, we need the server to tell us whether the sign up was successful or not.</p>
+<p>Even though your console will log out the responses (due to your <code>console.log</code> or <code>console.error</code> code), the most accurate way to assess a request is through the 'Network' tab on your chrome inspector:</p>
+<ol>
+<li>Open inspector, navigate to <em>Network</em> tab.</li>
+<li>Refresh your page, then make the sign up request.</li>
+<li>You should see a new item appears on the list, click it.</li>
+<li>The <em>Headers</em> tab tells you the request you have made, you can use this to double-confirm the request URL or parameters.</li>
+<li>And the <em>Response</em> will tell you the response you got back from the server!</li>
+</ol>
+<p>The API documentation allows you to toggle between successful and failed response.</p>
+<p>These are the possible responses the sign up API endpoint could give us:</p>
+<p><strong>Success</strong></p>
+<pre><code class="hljs json">{
+  <span class="hljs-attr"><span class="hljs-attr">"message"</span></span>: <span class="hljs-string"><span class="hljs-string">"Successfully created a user and signed in."</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">"status"</span></span>: <span class="hljs-string"><span class="hljs-string">"success"</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">"user"</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">"id"</span></span>: <span class="hljs-number"><span class="hljs-number">28</span></span>,
+    <span class="hljs-attr"><span class="hljs-attr">"username"</span></span>: <span class="hljs-string"><span class="hljs-string">"Test User"</span></span>
+  }
+}</code></pre><p><strong>Failed</strong></p>
+<pre><code class="hljs json">{
+    <span class="hljs-attr"><span class="hljs-attr">"message"</span></span>: [
+        <span class="hljs-string"><span class="hljs-string">"Email is already in use"</span></span>,
+        <span class="hljs-string"><span class="hljs-string">"Username must be between 5 and 20 characters"</span></span>
+    ],
+    <span class="hljs-attr"><span class="hljs-attr">"status"</span></span>: <span class="hljs-string"><span class="hljs-string">"failed"</span></span>
+}</code></pre><p>Within these blocks, you obtain the response messages and handle them accordingly:</p>
+<pre><code class="language-js hljs javascript">.then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">response</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(response)
+})
+.catch(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">error</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.error(error.response)
+})</code></pre>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

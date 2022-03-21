@@ -1,0 +1,59 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Creating The Form</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><h2 id="creating-the-form">Creating the form</h2>
+<p>There are 2 ways you can approach doing this.</p>
+<p>One way is to just write the form into your <code>UploadPage</code> directly and also handle the logic inside of there.</p>
+<p>Secondly, we can create a new component to contain the code for the form and then pass down <code>props</code> to the component from the <code>UploadPage</code>.</p>
+<p>Both ways are fine, you can always refactor later if you want to move it into a separate component.</p>
+<h3 id="building-the-form">Building the form</h3>
+<p>Below you will find a sample of the form, there shouldn't be anything too alien about it since we have already been dealing with forms prior to this. There is one subtle difference that you need to be aware of and that is the type of input we will use.</p>
+<p>Since we will be dealing with Images, we will need to use the <code>file</code> input type.</p>
+<pre><code class="language-JS hljs">&lt;Form onSubmit={
+  <span class="hljs-comment"><span class="hljs-comment">// The function to call on submit goes here</span></span>
+}&gt;
+  <span class="xml"><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormGroup</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Input</span></span></span></span><span class="xml"><span class="hljs-tag">
+      </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">type</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"file"</span></span></span></span><span class="xml"><span class="hljs-tag">
+      </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">name</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"image-file"</span></span></span></span><span class="xml"><span class="hljs-tag">
+      </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">onChange</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">{</span></span></span></span><span class="xml"><span class="hljs-tag">
+        // </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">The</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">function</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">to</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">call</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">when</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">you</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">have</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">selected</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">a</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">file</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">will</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">be</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">called</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">here</span></span></span></span><span class="xml"><span class="hljs-tag">
+        }
+    /&gt;</span></span></span><span class="xml">
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormText</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">color</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"muted"</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+      Make sure the image being uploaded is a supported format.
+    </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormText</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">FormGroup</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Button</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">type</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"submit"</span></span></span></span><span class="xml"><span class="hljs-tag"> </span></span><span class="hljs-attr"><span class="xml"><span class="hljs-tag"><span class="hljs-attr">color</span></span></span></span><span class="xml"><span class="hljs-tag">=</span></span><span class="hljs-string"><span class="xml"><span class="hljs-tag"><span class="hljs-string">"primary"</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+    Upload
+  </span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Button</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span><span class="xml">
+</span><span class="hljs-tag"><span class="xml"><span class="hljs-tag">&lt;/</span></span><span class="hljs-name"><span class="xml"><span class="hljs-tag"><span class="hljs-name">Form</span></span></span></span><span class="xml"><span class="hljs-tag">&gt;</span></span></span></span></code></pre>
+<h3 id="handling-the-file">Handling the file</h3>
+<p>Previously we have dealt with handling normal form input types with the likes of <code>email</code>, <code>text</code> and <code>password</code>. Handling the <code>file</code> type isn't much different, only how we access the file that is being uploaded is slightly different.</p>
+<p>The event that we will attach the <code>handleFile</code> function to, is <code>onChange</code>. This will trigger when we select the file from our computer and pass it into the form.</p>
+<p>The file can be captured from the <code>e.target.files</code>. Previously for other input types we would capture the information with the <code>e.target.value</code> and yes, this will also return a value for the file input but the value is a relative path to the file and not the file itself. We want to capture the actual file being passed to the form.</p>
+<pre><code class="language-JS hljs">setImageFile(e.target.files[<span class="hljs-number"><span class="hljs-number">0</span></span>]) </code></pre>
+<p>We will set the file to the state so that we can hold onto it and use it later when we submit the form to the server.</p>
+<p>The <code>files</code> value is an array since it is possible to pass multiple files to the input. However, to prevent multiple files, you can add the attribute <code>multiple="false"</code>.</p>
+<hr>
+<h2 id="exercise">Exercise:</h2>
+<p>Go ahead and build the form that will handle the file, you can choose to create it in your <code>UploadPage</code> or to create a new component just for the form.</p>
+<p>Implement validations if you wish, prevent the upload button from being pressed unless there is a file present.</p>
+<p>Remember to style it nicely. Although it can be tough to style the file input type, you can have a look here for some tricks on how to work around it.</p>
+<p><a target="_blank" href="https://benmarshall.me/styling-file-inputs/">Styling File Inputs</a><br><a target="_blank" href="https://tympanus.net/codrops/2015/09/15/styling-customizing-file-inputs-smart-way/">Styling File Inputs the Smart Way</a></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

@@ -1,0 +1,88 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Effects</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Once upon a time not so long ago, there were 3 functions that were a staple in the React diet. <code>componentDidMount</code>, <code>componentDidUpdate</code> and <code>componentWillUnmount</code>.</p>
+<p>These 3 functions played a huge roll in React development, so let's just quickly understand when they were invoked and why.</p>
+<p><code>componentDidMount</code> would be called on a component being "mounted", i.e., requested to be shown or displayed based on some condition being met. It would never be invoked again unless the component was unmounted and then mounted again.</p>
+<p><code>componentDidUpdate</code> would be called whenever there was a change in the props being passed down from the parent component, or, when there was a change in state within that component.</p>
+<p><code>componentWillUnmount</code> would be called when the component was being unmounted, or in other words, requested to no longer show its contents to the user.</p>
+<h3 id="what-is-useeffect">What is <code>useEffect()</code>?</h3>
+<p>When React Hooks were introduced they rolled out a neat Hook called <code>useEffect</code>. What this hook does, is combine the three effects above into one single super handy Hook.</p>
+<p>Now of course, things are not that straight forward; there are steps required to set the Hook up to work in each of the different ways.</p>
+<p>It is quite common in React that you may want to perform actions to interact with API's or your backend server when a user performs a certain behaviour in your app. This is what the <code>useEffect</code> was designed for.</p>
+<h3 id="basic-usage">Basic usage</h3>
+<p>In its purest form this is what the useEffect hook would look like.</p>
+<pre><code class="language-jsx hljs javascript">useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(<span class="hljs-string"><span class="hljs-string">'Hello World'</span></span>)
+})</code></pre>
+<p>In this form, the useEffect function would be invoked on initial mounting AND every single time there is change in the props and/or change in the state within the component.</p>
+<p><strong>You never want to perform a <code>setState</code> inside of this type of <code>useEffect</code>, the end result will be an infinite loop as the function will be continuously invoked on each state change.</strong></p>
+<h3 id="perform-action-on-mounting-component">Perform Action on Mounting Component</h3>
+<p>Let's take a look at how you would go about performing an action on the component mounting. As mentioned above, mounting can be seen as when the component is being asked to show/display itself.</p>
+<p>Sometimes you may need to retrieve data from your server or from external API's, this is where you would it. During the initial mount of the component, it wouldn't make sense to keep making requests each and every time there is a state change, since you should only need to retrieve the data once (unless for whatever reason that is the behaviour you are setting out to achieve).</p>
+<p>In order to perform the <code>useEffect</code> on initial mounting, an empty dependency array (<em>don't worry we will look at this more in a moment</em>) needs to be passed into the <code>useEffect</code>.</p>
+<pre><code class="language-jsx hljs javascript">useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// Your code will go here</span></span>
+}, [])</code></pre>
+<p>Doing this will ensure that the useEffect only runs <code>once</code> on the initial mounting.</p>
+<h3 id="effects-on-dependencies">Effects on dependencies</h3>
+<p>We can also make <code>useEffect</code> only run when it sees a change in the state or the props being passed down to the component.</p>
+<p>It will still run on the initial mounting of the component, but will only re-run when a specific props or state changes, not each and every time that component re-renders.</p>
+<p>Let's look at the example below.</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [currentPage, setCurrentPage] = useState(<span class="hljs-string"><span class="hljs-string">'Homepage'</span></span>)
+
+useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-built_in"><span class="hljs-built_in">document</span></span>.title = currentPage;
+}, [currentPage])
+</code></pre>
+<p>On initial mounting, the browser tab title will be changed to 'Homepage'. We can effectively imagine rendering a different component to display a different page, when we do that we can change the state for currentPage which will then in turn see the <code>useEffect</code> being invoked which will also replace the title in the browser tab to the new value.</p>
+<p><strong>Take a moment to absorb everything so far, go and try it for yourself and have a play with the useEffect with what you have learnt up to now and then continue on to the next part.</strong></p>
+<h3 id="cleaning-up-on-unmounting">Cleaning Up on Unmounting</h3>
+<p>By now you should be aware of how HTTP requests work in JavaScript and how you make calls to servers with fetch. It happens asynchronously, meaning it happens in the background and the doesn't stop the code in its track.</p>
+<p>One of the issues with React is if you make a request, the component can be unmounted before the request has finished. This means it will be trying to perform a state change on a state that no longer exists. When this happens to be case, you will see the following error.</p>
+<blockquote>
+<p>Warning: Can’t perform a React state update on an unmounted component. This is a no-op, but it indicates a memory leak in your application. To fix, cancel all subscriptions and asynchronous tasks in a useEffect cleanup function.</p>
+</blockquote>
+<p>In order to overcome this, you need to perform something called a <code>cleanup</code>. What this usually entails is cancelling any pending or unfinished request from proceeding when the component unmounts.</p>
+<p>To implement this effect is relatively straight forward.</p>
+<pre><code class="language-jsx hljs javascript">useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// Request happens here</span></span>
+
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    <span class="hljs-comment"><span class="hljs-comment">// Clean up happens here</span></span>
+  }
+}, [])</code></pre>
+<p>All you need to do is add a return function within the <code>useEffect</code>. The function will only get invoked as the component unmounts but will otherwise sit and remain dormant.</p>
+<h3 id="order-of-calls">Order of Calls</h3>
+<blockquote>
+<p>What if I want to have multiple effects? I may have different effects for different state changes.</p>
+</blockquote>
+<p>You can! It is perfect fine to have multiple useEffects within a single component. Just be aware in which the order they are, JavaScript will execute them from top to bottom.</p>
+<pre><code class="language-jsx hljs javascript">useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// I will run first</span></span>
+}. [])
+
+useEffect(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// I will run second</span></span>
+}. [])</code></pre>
+<hr>
+<h4 id="conclusion">Conclusion</h4>
+<p><code>useEffect</code> is an incredibly useful tool, and as you move into the Nextagram project, you will begin to reap the rewards and truly see the benefit of this hook.</p>
+<p>Take some time to digest and let all of this sink in. Go and play around in your own React app and try changing things to make more sense of what is going on with the different setups.</p>
+<p>It is going to be a very powerful tool in your belt so use it wisely!</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

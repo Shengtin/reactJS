@@ -1,0 +1,83 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React State</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>The heart of every React component is its “state” that determines how the component will render &amp; behave.</p>
+<h3 id="initial-state">Initial State</h3>
+<p>Inside a component, in order to initialize the state we use the <code>useState</code> hook and you can see below how that would be written:</p>
+<pre><code class="language-jsx hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [textInput, setTextInput] = useState(<span class="hljs-string"><span class="hljs-string">''</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [isLoading, setIsLoading] = useState(<span class="hljs-literal"><span class="hljs-literal">false</span></span>)
+<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [pageNumber, setPageNumber] = useState(<span class="hljs-number"><span class="hljs-number">1</span></span>)
+</code></pre>
+<p>We are telling the component to get loaded with these initial states that are being passed into the <code>useState</code> hook.</p>
+<hr>
+<h3 id="modifying-state-using-usestate">Modifying State using <code>useState</code></h3>
+<p>In order to update State, we must use the function that is returned from the useState hook, we can name them explicitly so that it is clear what state they are going to have an effect on.</p>
+<blockquote>
+<p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</p>
+</blockquote>
+<p>The value that is passed into the function will be the new value for the state.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> someFunction = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  setTextInput(<span class="hljs-string"><span class="hljs-string">'I typed something...'</span></span>)
+  setIsLoading(<span class="hljs-literal"><span class="hljs-literal">true</span></span>)
+  setPageNumber(pageNumber + <span class="hljs-number"><span class="hljs-number">1</span></span>)
+}</code></pre>
+<p>The three different setState functions receive an argument, the value received will then be reflected in the values of the respective states.</p>
+<p>In the above example, we change</p>
+<ul>
+<li><code>textInput</code> state to <code>"I typed someting..."</code></li>
+<li><code>isLoading</code> state to <code>true</code></li>
+<li><code>pageNumber</code> state to its original value + 1</li>
+</ul>
+<hr>
+<h3 id="every-setstate-triggers-a-render">Every <code>setState()</code> triggers a render</h3>
+<p><strong>Every time we use <code>setState()</code> to modify the state, a render will happen</strong>. This is how users get to see an updated HTML with the new state.</p>
+<hr>
+<h3 id="do-not-mutate-the-state-directly">Do not mutate the state directly</h3>
+<p>Mutating the <code>state</code> is a big NO in React. For example, reassigning the state into something else:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> someFunction = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  textInput = <span class="hljs-string"><span class="hljs-string">'I typed something...'</span></span>
+  isLoading = <span class="hljs-literal"><span class="hljs-literal">true</span></span>
+  pageNumber = pageNumber + <span class="hljs-number"><span class="hljs-number">1</span></span>
+}</code></pre>
+<p>This will not trigger a render, and therefore the HTML will not get updated.</p>
+<h4 id="dealing-with-array-state">Dealing with Array State</h4>
+<p>Beginners tend to accidentally mutate <code>state</code> when there is an array:</p>
+<pre><code class="language-js hljs javascript">someArray.push(newElement)</code></pre>
+<p>Instead of doing that, we have to first make a clone of the array, then use <code>setState</code>:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> newArray = [...someArray]
+newArray.push(newElement)
+
+setArray(newArray)</code></pre>
+<hr>
+<h3 id="you-cant-access-the-new-state-right-after-setstate">You can't access the new state right after <code>setState</code></h3>
+<p>Let's say we have a component with initial <code>number</code> state of 0, and we call the <code>changeNumber()</code> function to set number to 5.</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> SomeComponent = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> [number, setNumber] = useState(<span class="hljs-number"><span class="hljs-number">0</span></span>)
+
+  <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> changeNumber = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+    setNumber(<span class="hljs-number"><span class="hljs-number">5</span></span>)
+    <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(number) <span class="hljs-comment"><span class="hljs-comment">// still gives you 0</span></span>
+  }
+
+  <span class="hljs-built_in"><span class="hljs-built_in">console</span></span>.log(number) <span class="hljs-comment"><span class="hljs-comment">// this will give you 5</span></span>
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (...)
+}
+</code></pre>
+<p>Upon calling changeNumber function, <code>number</code> will remain at its old value 0 until a render is executed!</p>
+<p>You may <a target="_blank" href="https://medium.com/@baphemot/understanding-reactjs-setstate-a4640451865b">refer to this article</a> to understand more about this behavior.</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

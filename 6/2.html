@@ -1,0 +1,61 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Nextagram API Endpoints</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>React JS only handles the frontend - the UIUX.</p>
+<p>We can create a login form with React, but pressing the 'Login' button will not do anything unless we instruct it to interact with a backend server.</p>
+<p>Therefore, for Nextagram, we have provided you a backend server built with Python.</p>
+<p>Your React app will 'talk' to the server through a few <strong>API endpoints</strong> that we have prepared for you.</p>
+<hr>
+<p>Essentially, to 'talk' to a server, we <strong>make API calls (HTTP requests)</strong> to the API endpoints. We can do that through <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API">Fetch</a>, which is a built-in feature in most of the modern browsers.</p>
+<p>For our React app, we will use a library called <a target="_blank" href="https://github.com/axios/axios">Axios</a> to make the API call process easier, the call looks very similar to <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">Fetch</a>, but less wordy.</p>
+<pre><code class="language-js hljs javascript">axios({
+  <span class="hljs-attr"><span class="hljs-attr">method</span></span>: <span class="hljs-string"><span class="hljs-string">'POST'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">url</span></span>: <span class="hljs-string"><span class="hljs-string">'&lt;API Endpoint URL&gt;'</span></span>,
+  <span class="hljs-attr"><span class="hljs-attr">data</span></span>: {
+    <span class="hljs-attr"><span class="hljs-attr">hello</span></span>: <span class="hljs-string"><span class="hljs-string">'world'</span></span>,
+  }
+})
+.then(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">data</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// The server responds to us with data</span></span>
+})
+.catch(<span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">error</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-comment"><span class="hljs-comment">// handle error here</span></span>
+})</code></pre>
+<hr>
+<h4 id="nextagram-api">Nextagram API</h4>
+<blockquote>
+<p><strong>The documentation for Nextagram API are located here:</strong><br><a target="_blank" href="https://documenter.getpostman.com/view/2792518/RzZ6HLBy">https://documenter.getpostman.com/view/2792518/RzZ6HLBy</a></p>
+</blockquote>
+<p>Let's experiment! Visit one of the endpoints on your browser, try this:<br><a target="_blank" href="https://insta.nextacademy.com/api/v1/users/">https://insta.nextacademy.com/api/v1/users/</a></p>
+<p><em>If the API endpoints take a while to load don't worry! We are hosting this API app on Heroku's free tier which turns the server off when there are no web requests. Subsequent requests will get faster.</em></p>
+<p>The result you see is a list of all users registered to Nextagram. This user list data is in <a target="_blank" href="https://www.w3schools.com/js/js_json_intro.asp">JSON format</a>.</p>
+<p>What you just did was that you tapped into a server and retrieved information from it by making a <code>GET</code> HTTP request.</p>
+<p>However, if you try visiting this: <a target="_blank" href="https://insta.nextacademy.com/api/v1/login">https://insta.nextacademy.com/api/v1/login</a>, you get <code>Method Not Allowed</code> error. That is because according to the documentation, Login endpoint has to be a <code>POST</code> request. <strong>By pasting a URL on your browser, you are actually making a <code>GET</code> request.</strong></p>
+<br>
+
+<hr>
+<p>You may visit <a target="_blank" href="https://insta.nextacademy.com">https://insta.nextacademy.com</a> to check out the Nextagram app built using Python + Flask (without React). Our API endpoints in this react course is actually communicating with that same server, which means the data you made through the API will be reflected on the website.</p>
+<hr>
+<p><strong>Extra Reading</strong></p>
+<ul>
+<li><p><a target="_blank" href="https://medium.freecodecamp.org/here-is-the-most-popular-ways-to-make-an-http-request-in-javascript-954ce8c95aaa">Most popular ways to make HTTP requests in JS</a></p>
+</li>
+<li><p><a target="_blank" href="https://schoolofdata.org/2013/11/18/web-apis-for-non-programmers/">Web APIs for non-programmers</a></p>
+</li>
+</ul>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

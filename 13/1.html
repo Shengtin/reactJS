@@ -1,0 +1,91 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>Deployment</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>You have completed the app! 😃 So far, you have learnt:</p>
+<ul>
+<li><strong>Hooks</strong>: Awesome built in functions by React that make development a breeze!</li>
+<li><strong>State</strong>: Lives in a component, changing it will trigger render</li>
+<li><strong>Props</strong>: Something you pass down to another component</li>
+<li><strong>Lifecycle</strong>: <code>useEffect()</code> seems really useful!</li>
+<li><strong>Events</strong>: You have dealt with form events (<em>onChange, onInput, onSubmit</em>) and button event (<em>onClick</em>)</li>
+<li><strong>React Router</strong>: You get to change the URL bar and render components based on the URL</li>
+<li><strong>Reuseable Functional Component</strong>: We should strive for this whenever a component is merely presentional (no state and lifecycle). Remember <code>FlexibleButton</code> challenge?</li>
+<li><strong>Web Storage</strong>: If you need persisting data on frontend, <code>localStorage</code> or <code>sessionStorage</code> are your friends</li>
+<li><strong>Axios</strong>: A great tool to make API call!</li>
+</ul>
+<hr>
+<p>It's time to push your app to production! <code>create-react-app</code> has provided a very detailed documentation on your React app deployment:</p>
+<p><a target="_blank" href="https://facebook.github.io/create-react-app/docs/deployment">https://facebook.github.io/create-react-app/docs/deployment</a></p>
+<h4 id="npm-run-build">npm run build</h4>
+<p>Regardless of where your React app is hosted, all react deployments start with running <code>npm run build</code>. Try it now, and you will see that a <code>/build</code> folder is created.</p>
+<p>Inside the <code>build</code> folder contains <code>index.html</code> which is the entry point to your website (the one and only actual HTML file).</p>
+<p>All the written React JS code has been transpiled into old JS syntax, and minified (remove whitespace to minimize file size).</p>
+<p>Minified JS and CSS are located in <code>/build/static</code> folder.</p>
+<br>
+
+<h4 id="client-routing-problem">Client Routing Problem</h4>
+<p>There is however a serious issue with your React SPA routing. Since there is only <code>index.html</code> which represents <code>domain.com/</code>, if users do a fresh page load on <code>domain.com/users</code>, they will get <em>404 Not Found</em> error because there is no <code>users.html</code>.</p>
+<p>One solution is to use <strong>hash routing</strong>: instead of using <code>domain.com/users/3</code>, use <code>domain.com#/users/3</code>. Hosting server will still point that to <code>index.html</code> due to the hash.</p>
+<p>The other way is redirect every page request to <code>index.html</code>, which is what we will do later.</p>
+<br>
+
+<p>Further optional reading: <a target="_blank" href="https://tylermcginnis.com/react-router-cannot-get-url-refresh/">Fixing the Cannot Get /URL Error with React Router</a></p>
+<p>Github Pages specific solution: <a target="_blank" href="https://github.com/rafrex/spa-github-pages">SPA Github Pages</a></p>
+<hr>
+<h3 id="lets-deploy">Let's Deploy!</h3>
+<p>Fortunately, the actual deployment is actually very simple! We are going to use <a target="_blank" href="https://www.netlify.com/">Netlify</a> to build and host our React app.</p>
+<p>Go ahead and <a target="_blank" href="https://app.netlify.com/signup?_ga=2.135021496.836526110.1548696158-1654034674.1548696158">sign up an account on Netlify using Github</a>. Once you're done, follow the steps below:</p>
+<h4 id="1-commit-and-push-your-code-to-github">1. Commit and push your code to Github.</h4>
+<ul>
+<li><a target="_blank" href="https://github.com/new">Create a new github repository</a></li>
+<li>Press the <a target="_blank" href="https://next-courses-assets.s3.amazonaws.com/React.js_Javascript_-_Bootcamp/50db3194-7489-4d94-9e8b-3debc907149e-CloneOrDownloadGitHub.png">'Clone or download' button</a>, and copy the link.</li>
+<li>At the root folder of your React app, run:<ul>
+<li><code>git remote add origin &lt;the link you copied&gt;</code></li>
+<li><code>git add -A</code></li>
+<li><code>git commit -m "First Commit"</code></li>
+<li><code>git push -u origin master</code></li>
+</ul>
+</li>
+<li>Refresh your github repo page, you should see your code there</li>
+</ul>
+<h4 id="2-deploy-to-netlify">2. Deploy to Netlify</h4>
+<ul>
+<li><a target="_blank" href="https://app.netlify.com/start">Start a new netlify project</a></li>
+<li>Choose Github, give Netlify the permissions to acces your Github Repos</li>
+<li>Select your Nextagram repo</li>
+<li>Choose 'Deploy Site'</li>
+<li>You can visit <code>Site Setting</code> to change domain name</li>
+</ul>
+<h4 id="3-test-out-the-routing-problem">3. Test Out the Routing Problem</h4>
+<ul>
+<li>Test out your Nextagram on the production site!</li>
+<li>Visit <code>/users/1</code> or any page that is not home page, then refresh.</li>
+<li>You should see 404 Error.</li>
+</ul>
+<h4 id="4-redirect-all-page-to-indexhtml">4. Redirect all Page to <code>index.html</code></h4>
+<p>Let's fix that by redirecting all request to <code>/index.html</code>!</p>
+<p>In your React folder, create a file called <code>_redirects</code> in <code>/public</code> folder. Take note that <code>_redirects</code> file does not have any extension.</p>
+<p>Paste the following text in it and save:</p>
+<pre><code class="hljs">/*  /index.html  200</code></pre><p>Once done, push the changes to github again:</p>
+<ul>
+<li><code>git add -A</code></li>
+<li><code>git commit -m "Fix routing problem"</code></li>
+<li><code>git push origin master</code></li>
+</ul>
+<p>Voila! You're all set! Show off your React app to your friends and family! 🎉 🎉</p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>

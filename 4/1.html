@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="../home.css">
+
+<div class="col-md-8 p-0 border-right" id="lesson-show-content">
+        <div class="border-bottom pt-2 pb-2">
+          
+            <h3 class="text-center m-0"><span aria-hidden="true" class="fa fa-file-text-o"></span>React Component</h3>
+          
+        </div>
+        <div style="" id="lesson-body" class="py-3 px-5 lesson-body"><p>Open up <code>App.js</code> and you're looking at a React component:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">function</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">App</span></span></span><span class="hljs-function">(</span><span class="hljs-params"></span><span class="hljs-function"><span class="hljs-params"></span>) </span></span>{
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="hljs-comment"><span class="hljs-comment">// "HTML" code</span></span>
+  )
+}</code></pre>
+<p>By now you also know that JS functions can be written as <strong>arrow functions</strong> as well, that means the <code>App</code> component can also be written like so:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-keyword"><span class="hljs-keyword">const</span></span> App = <span class="hljs-function"><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> =&gt;</span></span> {
+  <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+    <span class="hljs-comment"><span class="hljs-comment">// "HTML" code</span></span>
+  ) 
+}</code></pre>
+<p>The components above are known as <strong>Functional Components</strong>, because they are defined using functions. Previously they were also known as <strong>Stateless Functional Components</strong> as they were unable to hold states within them. Since the introduction of React Hooks it is now possible to hold a state within a <strong>Stateless Functional Component</strong>. We will learn more about hooks shortly.</p>
+<hr>
+<p>The other type of component is known as <strong>Stateful Component</strong>, it is defined by using <code>class</code>:</p>
+<pre><code class="language-js hljs javascript"><span class="hljs-class"><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">class</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">App</span></span></span><span class="hljs-class"> </span><span class="hljs-keyword"><span class="hljs-class"><span class="hljs-keyword">extends</span></span></span><span class="hljs-class"> </span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">React</span></span></span><span class="hljs-class">.</span><span class="hljs-title"><span class="hljs-class"><span class="hljs-title">Component</span></span></span><span class="hljs-class"> </span></span>{
+  render() {
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (
+      <span class="hljs-comment"><span class="hljs-comment">// "HTML" code here</span></span>
+    )
+  }
+}</code></pre>
+<p>It is much more wordy, but it allows us to store states within the component without the use of hooks, and use <a target="_blank" href="http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/">component lifecycles</a>.</p>
+<p>React Hooks are now the preferred way to use state within components as they allow developers to write less code, but more than that, <strong>Functional Components</strong> get compiled into much less code compared to <strong>Stateful Components</strong>, this has huge performance benefits and results in a much smaller project filesize.</p>
+<h3 id="component-tree">Component Tree</h3>
+<p>When developing a React app, the way you structure your app is similar to a family tree.</p>
+<p>Your <code>App.js</code> will always be the highest level component. Inside your <code>App.js</code> you may have child components, such as NavBars, Footers and your different pages, such as a Homepage or an Error page. As we go down the family tree, other components will also live within the child components of the <code>App.js</code> component.</p>
+<p>For example, your pages may have different sections or your NavBar may contain a modal to hold a Login or Sign Up form.</p>
+<p>You can see the infographic below to visualize how a very simple component tree would look like.</p>
+<p><img src="https://next-courses-assets.s3.amazonaws.com/React.js_Javascript_-_Bootcamp/3d4fcef5-ab9c-4ec9-8c88-2c6e91ba4b1d-React_Component_Tree_1.png" alt="React_Component_Tree_1.png"></p>
+<p>You should always develop your React project with this family tree structure in mind. You want to split your app into smaller more manageable components, some of which may even be multi-purpose and reusable.</p>
+<p>Breaking down your app into smaller components makes it much easier to debug your code if something goes wrong.</p>
+<hr>
+<p>Quick read on components from official guide: <a target="_blank" href="https://reactjs.org/docs/components-and-props.html">https://reactjs.org/docs/components-and-props.html</a></p>
+</div>
+        <div class="mt-md-5 d-none d-md-block">
+          
+            <footer id="footer">
+  <div class="col">
+    <p class="text-center m-0 pt-4">© 2019 NEXT Academy (operated by Eleventh Division Sdn Bhd). All rights reserved.</p>
+  </div>
+</footer>
+          
+        </div>
+      </div>
